@@ -16,6 +16,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <header>
+        <h1>Carpe Diem</h1>
+        <div>
+          <p>로그인</p>
+          <p>회원가입</p>
+        </div>
+      </header>
       <body className={inter.className}>{children}</body>
     </html>
   );
