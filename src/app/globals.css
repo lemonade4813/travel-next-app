@@ -16,14 +16,32 @@
   }
 }
 
+/* @import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap') */
+
+
+@font-face {
+  font-family: 'GochiHand';
+  src:  url('https://fonts.gstatic.com/s/gochihand/v23/hES06XlsOjtJsgCkx1Pkfon_-18kTWE.woff2') format('woff2');
+  font-weight: 'normal';
+  font-size : 'normal';
+}
+
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
-  color: rgb(var(--foreground-rgb));
+  font-family: 'Pretendard-Regular';
+  /* color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
 }
 
 @layer utilities {

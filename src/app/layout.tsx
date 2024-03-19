@@ -17,11 +17,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <header>
-          <h1>Bon Voyage</h1>
+      <body>
+        <header className="flex items-center justify-center h-16  gap-96">
+          <h1 className="font-['GochiHand'] text-2xl text-red-800">Bon Voyage</h1>
+          <div className="flex gap-4">
+            <p>로그인</p>
+            <p>회원가입</p>
+          </div>
         </header>
-        <nav>
+        <nav className="flex items-center justify-center gap-60 bg-orange-200 h-16">
           <Link href ="/">홈</Link>
           <Link href ="/hotel">호텔예약</Link>
           <Link href ="/flight">항공편예약</Link>
