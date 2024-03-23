@@ -56,7 +56,7 @@ export const getAmadeusAccessToken = async () : Promise<void> => {
   }
   
   
-  export const fetchData = async (e: React.FormEvent<HTMLFormElement>, url : string) => {
+  export const fetchData = async (e: React.FormEvent<HTMLFormElement> | React.FormEvent<HTMLButtonElement> , url : string) => {
   
     e.preventDefault();
   
@@ -67,9 +67,14 @@ export const getAmadeusAccessToken = async () : Promise<void> => {
     try{
       const response = await fetch(url,{   
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            'Origin' : 'http://192.168.45.127',
+            'Cache-Control': 'no-store'
           }
         })
+
+          console.log(response)
+
           if (response.ok) {
             return await response.json()
           } else {
@@ -87,3 +92,5 @@ export const getAmadeusAccessToken = async () : Promise<void> => {
     }
   }
   
+
+  const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2024-04-01&adults=1&nonStop=false&max=250`
