@@ -1,25 +1,23 @@
+import { useEffect, useState } from "react";
+
 const AMADEUS_API_KEY = 'obCv6RoAxEq0IdbHANdGncCabaugPCwU'
 const AMADEUS_SECRET_KEY = 'DDOBeUcEConOZYQG'
 
 
-export const setAmadeusAccessToken = async () =>{
+// export const setAmadeusAccessToken = async () =>{
 
-  
-    if(!localStorage.getItem("amadeusAccessToken"))
-    removeAmadeusAccessToken(); 
-  
-  
-    const amadeusAccessToken  =  await getAmadeusAccessToken()
-    if(typeof amadeusAccessToken === 'string')
-    localStorage.setItem("amadeusAccessToken", amadeusAccessToken)
+    
+//     const amadeusAccessToken  =  await getAmadeusAccessToken()
+//     if(typeof amadeusAccessToken === 'string')
+//     localStorage.setItem("amadeusToken", amadeusAccessToken)
   
   
-    return localStorage.getItem("amadeusAccessToken")
+//     return localStorage.getItem("amadeusToken")
   
-  }
+//   }
   
   export const removeAmadeusAccessToken = () => {
-    localStorage.removeItem("amadeusAccessToken")
+    localStorage.removeItem("amadeusToken")
   }
 
 
@@ -56,41 +54,62 @@ export const getAmadeusAccessToken = async () : Promise<void> => {
   }
   
   
-  export const fetchData = async (e: React.FormEvent<HTMLFormElement> | React.FormEvent<HTMLButtonElement> , url : string) => {
+  export const useAxios = (url: string) => {
+    const [data, setData] = useState<any>(null);
+    const [error, setError] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState(false);
   
-    e.preventDefault();
-  
-    await setAmadeusAccessToken();
-  
-    const token = localStorage.getItem("amadeusAccessToken")
-  
-    try{
-      const response = await fetch(url,{   
+
+    const fetchData = async (url: string) => {
+
+      console.log(url)
+      setIsLoading(true);
+      try {
+
+        const token = localStorage.getItem('accessToken')
+
+        console.log(token)
+
+        if (!token) throw new Error("Failed to get access token");
+        const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Origin' : 'http://192.168.45.127',
-            'Cache-Control': 'no-store'
+            'Origin': 'http://192.168.45.127',
           }
-        })
+        });
 
-          console.log(response)
-
-          if (response.ok) {
-            return await response.json()
-          } else {
-            throw new HTTPError(response.status, response.statusText)
+        if (response.ok) {
+          const data = await response.json();
+          setData(data);
+        } else {
+          console.log(response.status)
+          throw new HTTPError(response.status, response.statusText);
         }
-      } catch(err){
-          if(err instanceof HTTPError)
-            switch(err.statusCode){
-              case 401:
-                alert("인증 오류 발생, 다시 시도해 주십시오")
-                break;
-              default : 
-                console.log(err);
+      } catch (err) {
+        if (err instanceof HTTPError) {
+          switch (err.statusCode) {
+            case 401:
+              removeAmadeusAccessToken();
+              getAmadeusAccessToken();
+              fetchData(url);
+              break;
+            default:
+              console.error(err);
           }
-    }
-  }
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    useEffect(() => {
+      
+      fetchData(url);
   
-
-  const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2024-04-01&adults=1&nonStop=false&max=250`
+      // Cleanup function to cancel fetch if component unmounts
+      return () => {
+        // Cleanup logic here if needed
+      };
+    }, [url]);
+  
+    return { data, isLoading, error };
+  };
