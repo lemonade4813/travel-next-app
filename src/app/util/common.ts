@@ -54,7 +54,7 @@ export const getAmadeusAccessToken = async () : Promise<void> => {
   }
   
   
-  export const useAxios = (url: string) => {
+  export const useFetch = (url: string) => {
     const [data, setData] = useState<any>(null);
     const [error, setError] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(false);
