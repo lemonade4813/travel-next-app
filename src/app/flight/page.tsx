@@ -2,6 +2,10 @@
 
 import { useEffect, useState } from "react"
 import { useFetch } from "../util/common";
+import CustomerDatePicker from "../util/DatePicker";
+import DatePicker from "react-datepicker";
+import styles from '../../scss/DatePicker.module.scss'
+
 
 const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2024-04-01&adults=1&nonStop=false&max=250`
 
@@ -9,9 +13,21 @@ export default function Flight(){
 
     const {data : flightList , isLoading, error} = useFetch(flightCallUrl)
 
+
+
+    const [date, setDate ] = useState< Date | null>(new Date());
+
+
+
     return(
         <div className="flex min-h-screen flex-col items-center p-24">
             <h2 className="">항공편 예약</h2>
+            <DatePicker className = {`${styles['react-datepicker__input-container']} ${styles['react-datepicker']}`} selected={date} onChange={setDate}/>
+            {/* <ReactDatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring focus:border-blue-300"
+            /> */}
             <button className="rounded-lg w-20 h-10 bg-red-800 text-white mt-20">조회하기</button>
             {flightList?.data?.length > 0 &&
                 (
