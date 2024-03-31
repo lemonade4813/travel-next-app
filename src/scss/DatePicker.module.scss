@@ -2,11 +2,11 @@
 .react-datepicker__input-container {
     
     input{
+
         border : 2px solid var(--neutral-light-darkest, #C5C6CC);
         height : 48px;
         border-radius : 8px;
         padding-left : 10px;
-        background :  no-repeat 95% 50%;
         font-family : Inter;
         box-sizing : border-box;
     }
@@ -16,19 +16,29 @@
 
     padding : 16px;
     width : 300px;
-    
-    .react-datepicker__header {
-        background-color: #fff;
-        color: #fff;
-        border-bottom: none;
-        border-radius: 0;    
-    }
+    background-color: #FBEFF5;    
 
     .react-datepicker__month-container {
         
         padding-bottom : 16px;
         margin-bottom : 8px;
         border-bottom : 1px solid #D4D6DD;
+
+        .react-datepicker__header  {
+            background-color: #fff;
+            color: #fff;
+            border-bottom: none;
+            border-radius: 0;    
+        }
+
+        .react-datepicker__month  {
+            background-color: #fff;
+            color: #fff;
+            border-bottom: none;
+            border-radius: 0;    
+        }
+
+
 
         .react-datepicker__day-names{
             
