@@ -110,6 +110,10 @@ export const getAmadeusAccessToken = async () : Promise<void> => {
         // Cleanup logic here if needed
       };
     }, [url]);
+
+    const refetch = async () => {
+      fetchData(url);
+    };
   
-    return { data, isLoading, error };
+    return { data, isLoading, error, refetch };
   };
