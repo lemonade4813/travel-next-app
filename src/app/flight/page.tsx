@@ -23,15 +23,25 @@ export default function Flight(){
     const [arriveCountry, setArriveCountry] = useState('')
     const [arriveAirport, setArriveAirport] = useState('SYD')
 
-    const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${departAirport}&destinationLocationCode=${arriveAirport}&departureDate=${getNowDate(date)}&adults=1&nonStop=false&max=250`
+
+    console.log(!!date && !!arriveAirport && !!departAirport)
+    
+    const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${departAirport}&destinationLocationCode=${arriveAirport}&departureDate=${getNowDate(date!)}&adults=1&nonStop=false&max=250`
 
 
-    console.log(departCountry)
-    console.log(flightCallUrl)
+    console.log(!!arriveAirport)
+    console.log(!!departAirport)
 
     const {data : flightList , isLoading, error, refetch} = useFetch(flightCallUrl)
 
 
+    useEffect(()=>{
+        setArriveAirport('');
+    },[arriveCountry])
+
+    useEffect(()=>{
+        setDepartAirport('');
+    },[departCountry])
 
 
 
@@ -49,6 +59,7 @@ export default function Flight(){
                 />
                 <p>출발국가</p>
                 <select 
+                    value={departCountry}
                     className={`bg-pink-50 border-2 border-pink-600 text-pink-600 rounded-md h-10 w-32`}
                     onChange={(e) => setDepartCountry(e.target.value)}>
                         <option value="">출발국가 선택</option>
@@ -58,6 +69,7 @@ export default function Flight(){
                 </select>
                 <p>출발공항 선택</p>
                 <select 
+                    value={departAirport}
                     className={`bg-pink-50 border-2 border-pink-600 text-pink-600 rounded-md h-10 w-32`}
                     onChange={(e) => setDepartAirport(e.target.value)}>
                         <option value="">출발공항 선택</option>
@@ -67,6 +79,7 @@ export default function Flight(){
                 </select>
                 <p>도착국가</p>
                 <select 
+                    value={arriveCountry}
                     className={`bg-pink-50 border-2 border-pink-600 text-pink-600 rounded-md h-10 w-32`}
                     onChange={(e) => setArriveCountry(e.target.value)}>
                         <option value="">도착국가 선택</option>
@@ -76,6 +89,7 @@ export default function Flight(){
                 </select>
                 <p>도착공항 선택</p>
                 <select 
+                    value={arriveAirport}
                     className={`bg-pink-50 border-2 border-pink-600 text-pink-600 rounded-md h-10 w-32`}
                     onChange={(e) => setArriveAirport(e.target.value)}>
                         <option value="">도착공항 선택</option>
@@ -89,7 +103,7 @@ export default function Flight(){
                 onChange={(date) => setStartDate(date)}
                 className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring focus:border-blue-300"
             /> */}
-            <button className="rounded-lg w-40 h-12 bg-red-800 text-white mt-20">조회하기</button>
+            <button className={`rounded-lg w-40 h-12 mt-20 ${(!!date && !!departAirport && !!arriveAirport) ? 'bg-red-800 text-white'  : 'bg-gray-300 text-gray-800'}`}>조회하기</button>
             {flightList?.data?.length > 0 &&
                 (
                     flightList?.data?.map(({itineraries, price, oneway} : any, index: number) => ( 
