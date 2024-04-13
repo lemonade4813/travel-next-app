@@ -1,20 +1,16 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { useFetch } from "../util/common";
-import CustomerDatePicker from "../util/DatePicker";
+import { Suspense, useEffect, useState } from "react"
 import DatePicker from "react-datepicker";
 import styles from '../../scss/DatePicker.module.scss'
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from "date-fns/locale";
 import { iataCode } from "../util/iataCode";
 import { getNowDate } from "../util/getNowDate";
-
-// const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2024-04-01&adults=1&nonStop=false&max=250`
+import Loading from "./loading";
+import FlightList from "./flightList";
 
 export default function Flight(){
-
-
 
     const [date, setDate ] = useState< Date | null>(new Date());
 
@@ -24,17 +20,6 @@ export default function Flight(){
     const [arriveAirport, setArriveAirport] = useState('SYD')
 
 
-    console.log(!!date && !!arriveAirport && !!departAirport)
-    
-    const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${departAirport}&destinationLocationCode=${arriveAirport}&departureDate=${getNowDate(date!)}&adults=1&nonStop=false&max=250`
-
-
-    console.log(!!arriveAirport)
-    console.log(!!departAirport)
-
-    const {data : flightList , isLoading, error, refetch} = useFetch(flightCallUrl)
-
-
     useEffect(()=>{
         setArriveAirport('');
     },[arriveCountry])
@@ -42,8 +27,6 @@ export default function Flight(){
     useEffect(()=>{
         setDepartAirport('');
     },[departCountry])
-
-
 
     return(
         <div className="flex min-h-screen flex-col items-center p-24">
@@ -98,66 +81,10 @@ export default function Flight(){
                     )}
                 </select>
             </div>
-            {/* <ReactDatePicker
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                className="border border-gray-300 rounded px-3 py-2 w-full focus:outline-none focus:ring focus:border-blue-300"
-            /> */}
-            <button className={`rounded-lg w-40 h-12 mt-20 ${(!!date && !!departAirport && !!arriveAirport) ? 'bg-red-800 text-white'  : 'bg-gray-300 text-gray-800'}`}>조회하기</button>
-            {flightList?.data?.length > 0 &&
-                (
-                    flightList?.data?.map(({itineraries, price, oneway} : any, index: number) => ( 
-                        <div key={index} className="space-y-4 mb-20 mt-20">
-                            <h3>예약 정보 {index + 1}</h3>
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead>
-                                    <tr>
-                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">통화</th>
-                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">기본가격</th>
-                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">총 가격</th>
-                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">편도여부</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    <tr>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center">{price.currency}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center">{price.base}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center">{price.grandTotal}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center">{oneway ? '편도' : '왕복'}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead>
-                                    <tr>
-                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">출발공항코드</th>
-                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">터미널</th>
-                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">출발시간</th>
-                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">도착공항코드</th>
-                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">터미널</th>
-                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">도착시간</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {itineraries?.map((i :any, index: number) => (
-                                        i.segments.map((seg : any, index: number) =>(
-                                            <tr key={index}>
-                                                <td className="px-6 py-4 whitespace-nowrap text-center">{seg.departure.iataCode}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-center">{seg.departure.terminal}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-center">{seg.departure.at.split('T').join(' ')}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-center">{seg.arrival.iataCode}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-center">{seg.arrival.terminal ?? '알 수 없음'}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-center">{seg.arrival.at.split('T').join(' ')}</td>
-                                            </tr>
-                                        ))
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    ))
-                )
-            }        
+            <Suspense fallback={<Loading/>}>
+                <FlightList date={date} departAirport={departAirport} arriveAirport={arriveAirport}/>
+            </Suspense>
+            {/* <button className={`rounded-lg w-40 h-12 mt-20 ${(!!date && !!departAirport && !!arriveAirport) ? 'bg-red-800 text-white'  : 'bg-gray-300 text-gray-800'}`}>조회하기</button> */}
         </div>
     )
 }

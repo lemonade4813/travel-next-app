@@ -4,8 +4,8 @@ import spinner from '../../asset/spinner.gif'
 export default function Loading(){
 
     return(
-        <div>
-            <Image src={spinner} alt="spinner"/>
-        </div>
+      
+            <Image src={spinner} alt="spinner" width={50} height={50}/>
+     
     )
 }

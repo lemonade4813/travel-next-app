@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const AMADEUS_API_KEY = 'obCv6RoAxEq0IdbHANdGncCabaugPCwU'
 const AMADEUS_SECRET_KEY = 'DDOBeUcEConOZYQG'
 
-  
+
   export const removeAmadeusAccessToken = () => {
     localStorage.removeItem("amadeusToken")
   }
@@ -41,10 +41,17 @@ export const getAmadeusAccessToken = async () : Promise<void> => {
     }
   }
   
+  
+  export const useFetch = (url: string) => {
+    const [data, setData] = useState<any>(null);
+    const [error, setError] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState(false);
+  
 
+    const fetchData = async (url: string) => {
 
-export const fetchData = async (url: string) => {
-
+      console.log(url)
+      setIsLoading(true);
       try {
 
         const token = localStorage.getItem('accessToken')
@@ -60,8 +67,8 @@ export const fetchData = async (url: string) => {
         });
 
         if (response.ok) {
-          const data = response.json();
-          return data;
+          const data = await response.json();
+          setData(data);
         } else {
           console.log(response.status)
           throw new HTTPError(response.status, response.statusText);
@@ -78,6 +85,23 @@ export const fetchData = async (url: string) => {
               console.error(err);
           }
         }
+      } finally {
+        setIsLoading(false);
       }
     };
+    useEffect(() => {
+      
+      fetchData(url);
   
+      // Cleanup function to cancel fetch if component unmounts
+      return () => {
+        // Cleanup logic here if needed
+      };
+    }, [url]);
+
+    const refetch = async () => {
+      fetchData(url);
+    };
+  
+    return { data, isLoading, error, refetch };
+  };
