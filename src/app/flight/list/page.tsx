@@ -1,6 +1,10 @@
+"use client"
+
+
 import { useEffect, useState } from "react"
-import { getNowDate } from "../util/getNowDate";
-import { fetchData } from "../util/common";
+import { getNowDate } from "@/app/util/getNowDate";
+import { fetchData } from "@/app/util/common";
+import { useSearchParams } from "next/navigation";
 
 
 type IFlightList = {
@@ -11,10 +15,17 @@ type IFlightList = {
 }
 
 
-export default function FlightList({departAirport, arriveAirport, date} : IFlightList) {
+export default function filghtList(){
 
 
-    const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${departAirport}&destinationLocationCode=${arriveAirport}&departureDate=${getNowDate(date!)}&adults=1&nonStop=false&max=250`
+    const searchParams = useSearchParams();
+    const departAirport = searchParams.get("departAirport");
+    const arriveAirport = searchParams.get("arriveAirport");
+    const departureDate = searchParams.get("departureDate");
+
+
+    console.log(searchParams.get('departureDate'))
+    const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${departAirport}&destinationLocationCode=${arriveAirport}&departureDate=${departureDate}&adults=1&nonStop=false&max=250`
 
     const [flightList, setFlightList] = useState<any>([])
 
@@ -29,7 +40,7 @@ export default function FlightList({departAirport, arriveAirport, date} : IFligh
             }
         };
         fetchFlightData();
-    }, []);
+    }, [searchParams]);
 
 
     return(

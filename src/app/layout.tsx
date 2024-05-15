@@ -33,6 +33,9 @@ export default function RootLayout({
   const pathname = usePathname();
 
 
+  console.log(pathname)
+
+
   return (
     <html lang="en">
       <body>
@@ -45,7 +48,7 @@ export default function RootLayout({
         </header>
         <nav className="flex items-center justify-center gap-60 bg-orange-200 h-16">
           {menuData.map((menu) => 
-            <div key={menu.id} className={`relative flex-1 ${pathname === menu.path ? 'bg-yellow-600' : ''}`}>
+            <div key={menu.id} className={`relative flex-1 ${pathname.includes(menu.path) ? 'bg-yellow-600' : ''}`}>
               <Link href={menu.path} className="block w-full h-full p-4 text-center">
                 {menu.name}
               </Link>
