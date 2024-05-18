@@ -42,7 +42,7 @@ export default function RootLayout({
         <header className="flex items-center justify-center h-16  gap-96">
           <h1 className="font-['GochiHand'] text-2xl text-red-800">Bon Voyage</h1>
           <div className="flex gap-4">
-            <p>로그인</p>
+            <Link href="/login">로그인</Link>
             <p>회원가입</p>
           </div>
         </header>
