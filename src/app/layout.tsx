@@ -1,11 +1,8 @@
-"use client"
-
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { usePathname } from "next/navigation";
+import NavLink from "./NavLink";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,12 +27,6 @@ export default function RootLayout({
 }>) {
 
 
-  const pathname = usePathname();
-
-
-  console.log(pathname)
-
-
   return (
     <html lang="en">
       <body>
@@ -43,16 +34,14 @@ export default function RootLayout({
           <h1 className="font-['GochiHand'] text-2xl text-red-800">Bon Voyage</h1>
           <div className="flex gap-4">
             <Link href="/login">로그인</Link>
-            <p>회원가입</p>
+            <Link href="/signup">회원가입</Link>
           </div>
         </header>
         <nav className="flex items-center justify-center gap-60 bg-orange-200 h-16">
           {menuData.map((menu) => 
-            <div key={menu.id} className={`relative flex-1 ${pathname.includes(menu.path) ? 'bg-yellow-600' : ''}`}>
-              <Link href={menu.path} className="block w-full h-full p-4 text-center">
+              <NavLink href={menu.path} key={menu.id}>
                 {menu.name}
-              </Link>
-            </div>
+              </NavLink>
           )}
         </nav>
         <section>
