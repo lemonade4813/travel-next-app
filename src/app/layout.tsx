@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import NavLink from "./NavLink";
+import NavLink from "./navLink";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 const menuData = [
 
-  {id : 'menu01', name : 'Home', path : '/'},
+  {id : 'menu01', name : 'Home', path : '/home'},
   {id : 'menu02', name : '호텔 예약', path : '/hotel'}, 
   {id : 'menu03', name : '항공편 예약', path : '/flight'},
 ]
