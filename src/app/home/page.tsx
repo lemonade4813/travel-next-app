@@ -1,10 +1,12 @@
 import { faHotel, faPlane, faUtensils } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import Carousel from "./carousel";
 
 export default function Home(){
 
     return(
-
+    <>
+    {/* <Carousel/> */}
     <div className="flex min-h-screen flex-col items-center">
       <div className="flex justify-center items-center gap-20 shadow-md round-lg border-1 bg-pink-100 border-pink-200 rounded-lg p-[30px] w-full">       
         <div className="flex justify-center items-center gap-[20px]">
@@ -39,6 +41,7 @@ export default function Home(){
         </div>
       </div>
     </div>
+    </>  
     )
 
 

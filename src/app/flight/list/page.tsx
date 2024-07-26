@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import { getNowDate } from "@/app/util/getNowDate";
 import { fetchData } from "@/app/util/common";
 import { useSearchParams } from "next/navigation";
+import { useFetch } from "@/app/util/useFetch";
 
 
 type IFlightList = {
@@ -18,29 +19,34 @@ type IFlightList = {
 export default function filghtList(){
 
 
-    const searchParams = useSearchParams();
-    const departAirport = searchParams.get("departAirport");
-    const arriveAirport = searchParams.get("arriveAirport");
-    const departureDate = searchParams.get("departureDate");
+    // const searchParams = useSearchParams();
+    // const departAirport = searchParams.get("departAirport");
+    // const arriveAirport = searchParams.get("arriveAirport");
+    // const departureDate = searchParams.get("departureDate");
 
 
-    console.log(searchParams.get('departureDate'))
-    const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${departAirport}&destinationLocationCode=${arriveAirport}&departureDate=${departureDate}&adults=1&nonStop=false&max=250`
+    // console.log(searchParams.get('departureDate'))
+    // const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${departAirport}&destinationLocationCode=${arriveAirport}&departureDate=${departureDate}&adults=1&nonStop=false&max=250`
 
-    const [flightList, setFlightList] = useState<any>([])
+    // const [flightList, setFlightList] = useState<any>([])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const fetchFlightData = async () => {
-            try {
-                const data = await fetchData(flightCallUrl);
-                setFlightList(data);
-            } catch (error) {
-                console.error("Error fetching flight data:", error);
-            }
-        };
-        fetchFlightData();
-    }, [searchParams]);
+    //     const fetchFlightData = async () => {
+    //         try {
+    //             const data = await fetch('http://localhost:8080/flight');
+                
+    //             setFlightList(data);
+    //         } catch (error) {
+    //             console.error("Error fetching flight data:", error);
+    //         }
+    //     };
+    //     fetchFlightData();
+    // }, []);
+
+    const {data : flightList, isLoading, error } = useFetch('http://localhost:8080/flight');
+
+    console.log(flightList);
 
 
     return(
