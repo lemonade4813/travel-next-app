@@ -8,53 +8,32 @@ import { useSearchParams } from "next/navigation";
 import { useFetch } from "@/app/util/useFetch";
 
 
-type IFlightList = {
+type IFlightItem = {
 
-    departAirport : string;
-    arriveAirport : string;
-    date : Date | null;
+    base : string;
+    currency : string;
+    originLocationCode : string;
+    destinationLocationCode : string;
+    numberOfBookableSeats : number;
+    offerId : number;
+    oneWay : boolean;
+    total : string;
+    lastTicketingDate : string;
 }
 
 
 export default function filghtList(){
 
-
-    // const searchParams = useSearchParams();
-    // const departAirport = searchParams.get("departAirport");
-    // const arriveAirport = searchParams.get("arriveAirport");
-    // const departureDate = searchParams.get("departureDate");
-
-
-    // console.log(searchParams.get('departureDate'))
-    // const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${departAirport}&destinationLocationCode=${arriveAirport}&departureDate=${departureDate}&adults=1&nonStop=false&max=250`
-
-    // const [flightList, setFlightList] = useState<any>([])
-
-    // useEffect(() => {
-
-    //     const fetchFlightData = async () => {
-    //         try {
-    //             const data = await fetch('http://localhost:8080/flight');
-                
-    //             setFlightList(data);
-    //         } catch (error) {
-    //             console.error("Error fetching flight data:", error);
-    //         }
-    //     };
-    //     fetchFlightData();
-    // }, []);
-
     const {data : flightList, isLoading, error } = useFetch('http://localhost:8080/flight');
 
-    console.log(flightList);
-
-
+    console.log(flightList)
+ 
     return(
         <div>
-        {flightList?.data?.length > 0 &&
+        {flightList?.length > 0 &&
             (
-                flightList?.data?.map(({itineraries, price, oneway} : any, index: number) => ( 
-                    <div key={index} className="space-y-4 mb-20 mt-20">
+                flightList?.map((filghtItem : IFlightItem, index : number) => ( 
+                    <div key={filghtItem.offerId} className="space-y-4 mb-20 mt-20">
                         <h3>예약 정보 {index + 1}</h3>
                         <table className="min-w-full divide-y divide-gray-200">
                             <thead>
@@ -63,19 +42,23 @@ export default function filghtList(){
                                     <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">기본가격</th>
                                     <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">총 가격</th>
                                     <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">편도여부</th>
+                                    <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">예약가능 최종일자</th>
+                                    <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">예약가능 좌석</th>
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
                                 <tr>
-                                    <td className="px-6 py-4 whitespace-nowrap text-center">{price.currency}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-center">{price.base}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-center">{price.grandTotal}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-center">{oneway ? '편도' : '왕복'}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.currency}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.base}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.total}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.oneWay ? '예' : '아니오'}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.lastTicketingDate}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.numberOfBookableSeats ?? 0}</td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <table className="min-w-full divide-y divide-gray-200">
+                        {/* <table className="min-w-full divide-y divide-gray-200">
                             <thead>
                                 <tr>
                                     <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">출발공항코드</th>
@@ -100,7 +83,7 @@ export default function filghtList(){
                                     ))
                                 ))}
                             </tbody>
-                        </table>
+                        </table> */}
                     </div>
                 ))
             )
