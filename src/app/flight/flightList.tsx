@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { getNowDate } from "../util/getNowDate";
-import { fetchData } from "../util/common";
+import { useFetch } from "../util/useFetch";
+import Loading from "./loading";
 
 
 type IFlightList = {
@@ -14,29 +14,11 @@ type IFlightList = {
 export default function FlightList({departAirport, arriveAirport, date} : IFlightList) {
 
 
-    // const flightCallUrl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${departAirport}&destinationLocationCode=${arriveAirport}&departureDate=${getNowDate(date!)}&adults=1&nonStop=false&max=250`
+    const {data : flightList , isLoading, error} = useFetch('http://localhost:8080/flight');
 
-
-    
-    const [flightList, setFlightList] = useState<any>([])
-
-    useEffect(() => {
-
-        const fetchFlightData = async () => {
-            try {
-                const data = await fetch('http://localhost:8080/flight');
-                console.log(data)
-
-                setFlightList(data);
-            } catch (error) {
-                console.error("Error fetching flight data:", error);
-            }
-        };
-        fetchFlightData();
-    }, []);
-
- 
-
+    if(isLoading){
+        return <Loading/>
+    }
 
     return(
         <div>

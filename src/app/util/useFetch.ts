@@ -1,36 +1,6 @@
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const AMADEUS_API_KEY = 'obCv6RoAxEq0IdbHANdGncCabaugPCwU'
-const AMADEUS_SECRET_KEY = 'DDOBeUcEConOZYQG'
-
-
-  export const removeAmadeusAccessToken = () => {
-    localStorage.removeItem("amadeusToken")
-  }
-
-
-
-export const getAmadeusAccessToken = async () : Promise<void> => {
-        
-    try{
-        const responseAuth = await fetch("https://test.api.amadeus.com/v1/security/oauth2/token",
-        {
-            body: `grant_type=client_credentials&client_id=${AMADEUS_API_KEY}&client_secret=${AMADEUS_SECRET_KEY}`,
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            method: "POST"
-        })
-        const responseAuthJson = await responseAuth.json() 
-        // return responseAuthJson.access_token
-        localStorage.setItem("accessToken", responseAuthJson.access_token)
-        
-    }
-    catch(e : unknown){
-        if(e instanceof Error)
-        console.log(e.message)
-    }
-  }
 
   class HTTPError extends Error {
     statusCode;
@@ -43,6 +13,9 @@ export const getAmadeusAccessToken = async () : Promise<void> => {
   
   
   export const useFetch = (url: string) => {
+    
+    const router = useRouter();
+    
     const [data, setData] = useState<any>(null);
     const [error, setError] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -50,21 +23,24 @@ export const getAmadeusAccessToken = async () : Promise<void> => {
 
     const fetchData = async (url: string) => {
 
+
+
       console.log(url)
       setIsLoading(true);
       try {
 
-        const token = localStorage.getItem('accessToken')
+        /*const token = localStorage.getItem('token')
 
-        console.log(token)
+        // if (!token) throw new Error("Failed to get access token");
 
-        if (!token) throw new Error("Failed to get access token");
         const response = await fetch(url, {
           headers: {
-            Authorization: `Bearer ${token}`,
-            'Origin': 'http://192.168.45.127',
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           }
         });
+        */
+
+        const response = await fetch(url);
 
         if (response.ok) {
           const data = await response.json();
@@ -77,9 +53,8 @@ export const getAmadeusAccessToken = async () : Promise<void> => {
         if (err instanceof HTTPError) {
           switch (err.statusCode) {
             case 401:
-              removeAmadeusAccessToken();
-              getAmadeusAccessToken();
-              fetchData(url);
+              console.log("로그인이 필요합니다");
+              router.push("/login");
               break;
             default:
               console.error(err);

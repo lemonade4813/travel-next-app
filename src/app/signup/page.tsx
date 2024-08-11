@@ -1,21 +1,31 @@
 "use client"
 
-import { error } from "console"
+import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 
 export default function Signup(){
 
-        
+
+    const router = useRouter();
+
     const {register, watch, handleSubmit, formState : {errors, isValid}} = useForm<any>({mode : "onChange"})
 
 
-    const submitSignupInfo = async (data : any) => {
+    const submitSignupInfo = (data : any) => {
         
+        console.log(data)
+
+
         fetch('http://localhost:8080/signup', 
-                {method : 'POST', 
-                 body : JSON.stringify(data)
+                {
+                        method : 'POST', 
+                        body : JSON.stringify(data),
+                        headers: {
+                                "Content-type" : "application/json"
+                        }
                 })
         .then((response) => {console.log(response)
+                             router.push('/login')
                              return response.json()}
              )
         .catch((error) => console.log(error));
@@ -29,8 +39,8 @@ export default function Signup(){
                         <form   onSubmit={handleSubmit(submitSignupInfo)}
                                 className="flex flex-col items-center justify-center">
                             <div className="mb-8 group"> 
-                                    <label htmlFor="id" className="mr-4 w-24 inline-block">아이디</label>
-                                    <input {...register("id", { required: '아이디를 입력해주세요.'})} className="shadow-lg border-solid border-pink-400 border-2 w-[240px] h-12 rounded-lg"/>
+                                    <label htmlFor="userId" className="mr-4 w-24 inline-block">아이디</label>
+                                    <input {...register("userId", { required: '아이디를 입력해주세요.'})} className="shadow-lg border-solid border-pink-400 border-2 w-[240px] h-12 rounded-lg"/>
                                     <p className="text-[#DC143C] text-sm mt-2">{errors?.id?.message?.toString()}</p>
                             </div>
                             <div className="mb-8 group"> 

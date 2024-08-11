@@ -1,6 +1,7 @@
 "use client"
 
 
+import { url } from "inspector";
 import { useForm } from "react-hook-form";
 
 export default function Login(){
@@ -9,8 +10,26 @@ export default function Login(){
         const {register, handleSubmit, watch, formState : {isValid, errors}} = useForm<any>({mode : "onSubmit"});
 
 
-        const onSubmit = (data : any) => {
-                console.log(data)
+        const onSubmit = async (data : any) => {
+
+                try
+                {    
+                        const response = await fetch('http://localhost:8080/login',
+                                                {method : 'POST',
+                                                 body : JSON.stringify(data),
+                                                 headers : {
+                                                "Content-type" : "application/json"
+                                                 }
+                                                })
+                                                
+                        const responseJson = await response.json();
+                        localStorage.setItem("token", responseJson.access_token);
+                }
+                catch(e : unknown){
+                        if(e instanceof Error){
+                                console.log(e.message);
+                        }
+                }
         }
 
         return(
@@ -21,7 +40,7 @@ export default function Login(){
                         >
                         <div className="mb-8 group"> 
                                 <label htmlFor="id" className="mr-4 w-16 inline-block">아이디</label>
-                                <input {...register("id", { required: '아이디를 입력해주세요.'})} className="shadow-lg border-solid border-pink-400 border-2 w-[240px] h-12 rounded-lg"/>
+                                <input {...register("userId", { required: '아이디를 입력해주세요.'})} className="shadow-lg border-solid border-pink-400 border-2 w-[240px] h-12 rounded-lg"/>
                                 <p className="text-[#DC143C] text-sm mt-2">{errors?.id?.message?.toString()}</p>
                         </div>
                         <div className="group">

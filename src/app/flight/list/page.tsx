@@ -1,12 +1,11 @@
 "use client"
 
-
 import { useEffect, useState } from "react"
 import { getNowDate } from "@/app/util/getNowDate";
 import { fetchData } from "@/app/util/common";
 import { useSearchParams } from "next/navigation";
 import { useFetch } from "@/app/util/useFetch";
-
+import Loading from "../loading";
 
 type IFlightItem = {
 
@@ -26,8 +25,14 @@ export default function filghtList(){
 
     const {data : flightList, isLoading, error } = useFetch('http://localhost:8080/flight');
 
-    console.log(flightList)
- 
+    if(isLoading){
+        return <Loading/>
+    }
+
+    if(error){
+        console.log(error)
+    }
+
     return(
         <div>
         {flightList?.length > 0 &&

@@ -1,31 +1,20 @@
 "use client"
 
-import Image from "next/image";
 import { useFetch } from "../util/useFetch"
-import spinner from '../../asset/spinner.gif'
+import Loading from "../flight/loading";
 export default function Hotel(){
 
 
-    const hotelListCallUrl = `https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?cityCode=PAR&radius=5`
-
-    // const hotelListCallUrl = `https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?cityCode=PAR&radius=5`
-
-
     const {data : hotelList, isLoading, error } = useFetch('http://localhost:8080/hotel');
-
-
-    console.log(hotelList)
-
-
-    // const hotelList = data?.data;
+    
 
     if(isLoading){
-        return (
-                    <div className='flex min-h-screen flex-col items-center justify-between p-24'>
-                        <Image src={spinner} alt="spinner" width={50} height={50}/>
-                    </div>
-                )
-            }
+        return <Loading/>
+    }
+
+    if(error){
+        console.log(error)
+    }
 
     return(
         <div className="flex min-h-screen flex-col items-center justify-between p-24">
