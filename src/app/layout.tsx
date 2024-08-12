@@ -38,14 +38,14 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <header className="flex items-center justify-center h-16  gap-96">
+        <header className="flex items-center justify-around h-16">
           <h1 className="font-['GochiHand'] text-2xl text-red-800">Bon Voyage</h1>
           <div className="flex gap-4">
-            <Link href="/login">로그인</Link>
+            <Link href="/login" className="border-r-2 border-sky-300 pr-[16px]">로그인</Link>
             <Link href="/signup">회원가입</Link>
           </div>
         </header>
-        <nav className="flex items-center justify-center gap-60 bg-orange-200 h-16">
+        <nav className="flex items-center justify-center pb-[4px]">
           {menuData.map((menu) => 
               <NavLink href={menu.path} key={menu.id}>
                 {menu.name}
