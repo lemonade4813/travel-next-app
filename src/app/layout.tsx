@@ -45,7 +45,7 @@ export default function RootLayout({
             <Link href="/signup">회원가입</Link>
           </div>
         </header>
-        <nav className="flex items-center justify-center pb-[4px]">
+        <nav className="flex items-center justify-center shadow-xl">
           {menuData.map((menu) => 
               <NavLink href={menu.path} key={menu.id}>
                 {menu.name}

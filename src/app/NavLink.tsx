@@ -10,12 +10,14 @@ export default function NavLink({href, children} : any){
     const pathname = usePathname();
 
     return(
-        <div className={`relative flex-1 bg-blue-200 h-[60px]`}>
+        <div className={`relative flex-1 h-[60px] pb-[4px] 
+                         ${pathname.includes(href) ? 'border-b-2 border-sky-700' : ''}`}>
             <Link href={href} 
-                  className={`block w-full h-full p-4 text-center
+                  className={`block w-full h-full text-center 
+                               p-4
                               ${pathname.includes(href) ? 
-                                'bg-sky-600 text-white border-b-2 border-sky-700' 
-                             : ''}
+                                'bg-sky-600 text-white'
+                             : 'bg-blue-200'}
                     `}
             >
                 {children}
