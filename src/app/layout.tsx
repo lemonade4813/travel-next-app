@@ -17,7 +17,8 @@ const menuData = [
   {id : 'menu01', name : 'Home', path : '/home'},
   {id : 'menu02', name : '호텔 예약', path : '/hotel'}, 
   {id : 'menu03', name : '항공편 예약', path : '/flight'},
-  {id : 'menu04', name : '국내 숙박업소 예약', path : '/domestic/accom'}
+  {id : 'menu04', name : '국내 숙박업소 예약', path : '/domestic/accom'},
+  {id : 'menu05', name : '생태 관광정보', path : '/tourinfo/eco'},
 ]
 
 
