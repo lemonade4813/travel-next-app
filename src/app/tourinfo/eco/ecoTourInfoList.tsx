@@ -25,7 +25,11 @@ export default async function EcoTourInfoList(){
                     <p>{eco.areacode}</p>
                     <div dangerouslySetInnerHTML={{__html : eco.summary}}/>
                     <p>{eco.createdtime}</p>
-                    <Image src={eco.mainimage ? eco.mainimage : NoImage} alt="mainimage" width={300} height={300}/>
+                    <Image src={eco.mainimage ? eco.mainimage : NoImage} 
+                           alt="mainimage" 
+                           width={300} 
+                           height={300}
+                    />
                 </div>
             ))}
         </div>

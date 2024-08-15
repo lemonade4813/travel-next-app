@@ -7,7 +7,6 @@ import { ko } from "date-fns/locale";
 
 import { useEffect, useState } from "react";
 import { iataCode } from "../util/iataCode";
-import Link from "next/link";
 import { getNowDate } from "../util/getNowDate";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +14,7 @@ export default function FlightSearchOptions(){
 
     const router = useRouter();
 
-    const [date, setDate ] = useState< Date | null>(new Date());
+    const [date, setDate] = useState< Date | null>(new Date());
 
     const [departCountry, setDepartCountry] = useState('')
     const [departAirport, setDepartAirport] = useState('BKK')
@@ -29,6 +28,9 @@ export default function FlightSearchOptions(){
     useEffect(()=>{
         setDepartAirport('');
     },[departCountry])
+
+
+    const queryString = `departAirport=${departAirport}&arriveAirport=${arriveAirport}&departureDate=${getNowDate(date!)}`
 
     return (
         <div className="flex flex-col items-center">
@@ -85,7 +87,7 @@ export default function FlightSearchOptions(){
             <button className={`rounded-lg w-40 h-12 mt-20 ${(!!date && !!departAirport && !!arriveAirport) ? 
                                 'bg-red-800 text-white'  : 
                                 'bg-gray-300 text-gray-800'}`}
-                    onClick={() => router.push(`/flight/list?departAirport=${departAirport}&arriveAirport=${arriveAirport}&departureDate=${getNowDate(date!)}`)}
+                    onClick={() => router.push(`/flight/${queryString}`)}
             >조회하기
             </button>
         </div>
