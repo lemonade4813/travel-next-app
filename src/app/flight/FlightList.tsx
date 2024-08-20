@@ -1,3 +1,9 @@
+"use client"
+
+import { getFlightList } from "@/app/util/getFlightList";
+import NavButton from "@/components/NavButton";
+import { useSuspenseQuery } from "@tanstack/react-query";
+
 type IFlightItem = {
 
     base : string;
@@ -12,25 +18,20 @@ type IFlightItem = {
 }
 
 
-async function getFlightList (queryString : string) {
-
-    const res = await fetch(`http://localhost:8080/flight/offer?${queryString}`,
-        {next : {revalidate : 6000}}
-    )
-    return res.json();
+type Props = {
+    searchParams : {date : Date ; departAirport : string; arriveAirport : string; }
 }
 
-export default async function FilghtList({query} : {query : string}){
+export default function FlightList( {searchParams} : Props){
 
-
-   const flightList = await getFlightList(query);
+    const { data : flightList } = useSuspenseQuery({queryKey : ['flight', searchParams], queryFn : getFlightList})
 
     return(
             <div>
             {flightList?.length > 0 &&
                 (
-                    flightList?.map((filghtItem : IFlightItem, index : number) => ( 
-                        <div key={filghtItem.offerId} className="space-y-4 mb-20 mt-20">
+                    flightList?.map((flightItem : IFlightItem, index : number) => ( 
+                        <div key={flightItem.offerId} className="space-y-4 mb-20 mt-20">
                             <h3>예약 정보 {index + 1}</h3>
                             <table className="min-w-full divide-y divide-gray-200">
                                 <thead>
@@ -41,16 +42,18 @@ export default async function FilghtList({query} : {query : string}){
                                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">편도여부</th>
                                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">예약가능 최종일자</th>
                                         <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">예약가능 좌석</th>
+                                        <th className="px-6 py-3 bg-gray-50 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">상세정보 보기</th>
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
                                     <tr>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.currency}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.base}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.total}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.oneWay ? '예' : '아니오'}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.lastTicketingDate}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-center">{filghtItem.numberOfBookableSeats ?? 0}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-center">{flightItem.currency}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-center">{flightItem.base}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-center">{flightItem.total}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-center">{flightItem.oneWay ? '예' : '아니오'}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-center">{flightItem.lastTicketingDate}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-center">{flightItem.numberOfBookableSeats ?? 0}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-center"><NavButton to={`/flight/${flightItem.offerId}`}/></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -60,6 +63,4 @@ export default async function FilghtList({query} : {query : string}){
             }        
         </div>
         )
-    
-
 }

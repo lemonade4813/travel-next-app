@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { iataCode } from "../util/iataCode";
 import { getNowDate } from "../util/getNowDate";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { getFlightList } from "../util/getFlightList";
 
 export default function FlightSearchOptions(){
 
@@ -28,13 +30,22 @@ export default function FlightSearchOptions(){
     useEffect(()=>{
         setDepartAirport('');
     },[departCountry])
+    
 
-
-    const queryString = `departAirport=${departAirport}&arriveAirport=${arriveAirport}&departureDate=${getNowDate(date!)}`
-
+    const handleSearch = () => {
+        if (date && departAirport && arriveAirport) {
+            const searchParams = new URLSearchParams({
+                departAirport,
+                arriveAirport,
+                date: date.toISOString().split('T')[0]
+            });
+            router.push(`/flight?${searchParams.toString()}`);
+        }
+    };
+  
     return (
         <div className="flex flex-col items-center">
-    <div className="flex items-center gap-4 mt-40"> 
+            <div className="flex items-center gap-4 mt-40"> 
                 <p>출발일자 선택</p>
                 <DatePicker
                     className = {`bg-pink-50 border-2 border-pink-600 text-pink-600 rounded-md h-10 w-32 ${styles['react-datepicker']}`}
@@ -84,10 +95,11 @@ export default function FlightSearchOptions(){
                     )}
                 </select>
             </div>
-            <button className={`rounded-lg w-40 h-12 mt-20 ${(!!date && !!departAirport && !!arriveAirport) ? 
-                                'bg-red-800 text-white'  : 
-                                'bg-gray-300 text-gray-800'}`}
-                    onClick={() => router.push(`/flight/${queryString}`)}
+            <button 
+                onClick={handleSearch}
+                className={`rounded-lg w-40 h-12 mt-20 ${(!!date && !!departAirport && !!arriveAirport) ? 
+                            'bg-red-800 text-white'  : 
+                            'bg-gray-300 text-gray-800'}`}
             >조회하기
             </button>
         </div>

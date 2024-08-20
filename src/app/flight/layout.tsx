@@ -1,4 +1,4 @@
-import FlightSearchOptions from "./filghtSearchOptions";
+import RQProvider from "@/components/RQProvider";
 
 export default function FilghtLayout({
     children,
@@ -7,9 +7,10 @@ export default function FilghtLayout({
   }>) {
 
     return(
-        <div className="justify-center">
-            <FlightSearchOptions/>
-            {children}
-        </div>
+        <RQProvider>
+          <div className="justify-center">
+              {children}
+          </div>
+        </RQProvider>
     )
 }

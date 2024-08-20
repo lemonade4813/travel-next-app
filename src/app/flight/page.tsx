@@ -1,17 +1,31 @@
-import { Suspense, useEffect, useState } from "react"
-import DatePicker from "react-datepicker";
-import styles from '../../scss/DatePicker.module.scss'
+import { Suspense } from "react"
 import 'react-datepicker/dist/react-datepicker.css';
-import { ko } from "date-fns/locale";
-import { iataCode } from "../util/iataCode";
-import { getNowDate } from "../util/getNowDate";
 import Loading from "./loading";
-import FlightList from "./[query]/flightList";
-import FlightSearchOptions from "./filghtSearchOptions";
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+import { getFlightList } from "../util/getFlightList";
+import FlightSearchOptions from "./FilghtSearchOptions";
+import FlightList from "./FlightList";
 
-export default function Flight(){
+type Props = {
+    searchParams : {date : Date ; departAirport : string; arriveAirport : string; }
+}
 
-    return(
-        <div className="flex min-h-screen flex-col items-center p-24"></div>
+
+export default async function Flight({searchParams} : Props){
+
+
+    const queryClient = new QueryClient();
+    await queryClient.prefetchQuery({queryKey : ['flight', searchParams], queryFn : getFlightList})
+    const dehydrateState = dehydrate(queryClient)
+
+    return (
+        <div>
+            <FlightSearchOptions/>
+            <Suspense fallback={<Loading/>}>
+                <HydrationBoundary state={dehydrateState}>
+                    <FlightList searchParams = {searchParams}/>
+                </HydrationBoundary>
+            </Suspense>
+        </div>
     )
 }

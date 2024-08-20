@@ -1,5 +1,8 @@
-export const getNowDate = (date : Date) => {
+export const getNowDate = (date : Date | null) => {
 
+    if(date === null){
+        return null;
+    }
 
     const year = date.getFullYear();
     const month = ((date.getMonth() + 1) < 10) ? "0" + (date.getMonth() + 1) :date.getMonth() + 1;
