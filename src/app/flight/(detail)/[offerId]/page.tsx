@@ -3,7 +3,7 @@ import AirplaneSvg from "../../../../asset/airplane.svg"
 import Image from "next/image";
 import { carriers } from "@/app/util/carrier";
 import { aircraft } from "@/app/util/aircraft";
-
+import "./style.css"
 
 async function getFlightDetailInfo (offerId : number) {
 
@@ -20,15 +20,15 @@ export default async function FlightDetailInfo({ params }: { params: { offerId: 
     return (
         <div className="flex min-h-screen flex-col items-center p-24">
            <div className="flex flex-1 justify-between text-center gap-4 w-full">
-                <div className="shadow-md rounded-md flex-1">
+                <div className="container-shadow flex-1">
                     <p className="p-4 bg-yellow-400 rounded-t-md">편도 여부</p>
                     <p className="p-4 bg-yellow-100 rounded-b-md">{flightDetailInfo.oneWay ? "예" : "아니오"}</p>
                 </div>
-                <div className="shadow-md rounded-md flex-1">
+                <div className="container-shadow flex-1">
                     <p className="p-4 bg-yellow-400 rounded-t-md">최종 예약 가능일자</p>
                     <p className="p-4 bg-yellow-100 rounded-b-md">{flightDetailInfo.lastTicketingDate}</p>
                 </div>
-                <div className="shadow-md rounded-md flex-1">
+                <div className="container-shadow flex-1">
                     <div className="p-4 bg-yellow-400 rounded-t-md">예약가능 좌석</div>
                     <div className="p-4 bg-yellow-100 rounded-b-md">{flightDetailInfo.numberOfBookableSeats}</div>
                 </div>
@@ -86,6 +86,7 @@ export default async function FlightDetailInfo({ params }: { params: { offerId: 
                                     <p className="p-4 bg-red-200 shadow-md rounded-t-md">소요 시간</p>
                                     <p className="p-4 bg-red-100 shadow-md rounded-t-md">{parserISO8601Duration(seg.duration)}</p>
                                 </div>
+
                                 <div className="text-center">
                                     <p className="p-4 bg-red-200 shadow-md rounded-t-md">Number of Stops</p>
                                     <p className="p-4 bg-red-100 shadow-md rounded-t-md">{seg.numberOfStops}</p>
@@ -93,6 +94,7 @@ export default async function FlightDetailInfo({ params }: { params: { offerId: 
                             </div>
                         </div>
                     ))}
+                    <button className="bg-red-800 rounded-lg text-white w-full h-[60px]">예약하기</button>
                 </div>
             ))}
         </div>
