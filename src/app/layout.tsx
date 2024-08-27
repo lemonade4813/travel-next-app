@@ -57,7 +57,7 @@ export default function RootLayout({
             </NavLink>
           )}
         </nav>
-        <section>
+        <section className="flex justify-center items-center">
           {children}
         </section>
       </body>
