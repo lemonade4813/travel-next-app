@@ -24,6 +24,8 @@ const menuData = [
     id: 'menu04', name: '관광정보', path : '/tourinfo/eco',
     subMenu: [
       { name: '생태 관광', path: '/tourinfo/eco' },
+      { name: '문화체육관광부 추천 관광지', path: '/tourinfo/rec' },
+
     ]
   },
 ]
