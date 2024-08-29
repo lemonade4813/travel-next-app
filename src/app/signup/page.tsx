@@ -36,7 +36,7 @@ export default function Signup(){
     return(
         <div className="absolute w-[400px] h-[120px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                         <h1 className="text-[40px] mb-8">회원가입</h1>
-                        <form   onSubmit={handleSubmit(submitSignupInfo)}
+                        <form  onSubmit={handleSubmit(submitSignupInfo)}
                                 className="flex flex-col items-center justify-center">
                             <div className="mb-8 group"> 
                                     <label htmlFor="userId" className="mr-4 w-24 inline-block">아이디</label>

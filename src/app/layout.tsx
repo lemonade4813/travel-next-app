@@ -6,16 +6,16 @@ import Script from "next/script";
 
 const menuData = [
 
-  {id : 'menu01', name : 'Home', path : '/home'},
+  // {id : 'menu01', name : 'Home', path : '/home'},
   {
-    id: 'menu02', name: '호텔 / 숙소', path : '/domestic/accom',
+    id: 'menu02', name: '호텔 • 숙소 예약', path : '/domestic/accom',
     subMenu: [
       { name: '국내 숙소', path: '/domestic/accom' },
       { name: '해외 호텔', path: '/hotel' },
     ]
   },
   {
-    id: 'menu03', name: '항공편', path : '/flight',
+    id: 'menu03', name: '항공편 예약', path : '/flight',
     subMenu: [
       { name: '해외', path: '/flight' },
     ]
@@ -45,8 +45,8 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <header className="flex items-center justify-around h-16">
-          <h1 className="font-['GochiHand'] text-2xl text-red-800">Bon Voyage</h1>
+        <header className="flex items-center justify-around h-16 border-b-4 border-sky-800">
+          <h1 className="font-['GochiHand'] text-2xl text-red-800"><Link href='/'>Bon Voyage</Link></h1>
           <div className="flex gap-4">
             <Link href="/login" className="border-r-2 border-sky-300 pr-[16px]">로그인</Link>
             <Link href="/signup">회원가입</Link>
@@ -59,7 +59,7 @@ export default function RootLayout({
             </NavLink>
           )}
         </nav>
-        <section className="flex justify-center items-center">
+        <section className="">
           {children}
         </section>
       </body>

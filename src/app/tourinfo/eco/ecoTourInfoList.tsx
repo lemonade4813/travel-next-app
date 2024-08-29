@@ -21,7 +21,7 @@ async function getEcoTourInfoList() {
 
         const errorMsg = xmlData?.OpenAPI_ServiceResponse?.cmmMsgHeader?.returnAuthMsg;
 
-        throw new Error(`데이터를 불러오는데 실패했습니다.\n 잠시후에 다시 시도해주시기 바랍니다.\n ${errorMsg}`)
+        throw new Error(`데이터를 불러오는데 실패했습니다.\n 잠시후에 다시 시도해주시기 바랍니다.\n Error : ${errorMsg}`)
       
     }
 

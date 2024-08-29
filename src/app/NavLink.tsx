@@ -8,7 +8,13 @@ export default function NavLink({ href, children, subMenu }: { href: string; chi
     const pathname = usePathname();
 
     return (
-        <div className={`relative flex-1 h-[60px] pb-[4px] group ${pathname.includes(href) ? 'border-b-2 border-sky-700' : ''}`}>
+        <div className={`relative flex-1 h-[60px] pb-[4px] group 
+                        ${(pathname === '/home' ||
+                           pathname === '/login'||
+                           pathname === '/signup'
+                        ? 'hidden' : 'none')} 
+                        ${pathname.includes(href) ? 'border-b-2 border-sky-700' : ''}`
+        }>
             <Link href={href}
                 className={`block w-full h-full text-center p-4 border-r-2 border-sky-400
                     ${pathname.includes(href) ? 'bg-sky-600 text-white' : 'bg-blue-200'}
