@@ -64,7 +64,7 @@ export default function Signup(){
                     <button
                         type="submit" 
                         className={`rounded-lg w-40 h-12 mt-20 text-white ${isValid ? 'bg-red-800' : 'bg-gray-400'}`} 
-                        disabled={!isValid}>제출
+                        disabled={!isValid}>가입하기
                     </button>
                 </form>
             </div>

@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation"
 import { Map, MapMarker } from "react-kakao-maps-sdk"
 import NoImageSvg from "../../../../asset/noImage.svg"
-import BedSvg from "../../../../asset/bed.svg"
 import { convertToDateTimeFormat } from "@/app/util/convertToDateTimeFormat";
 
 
@@ -31,7 +30,6 @@ export default function DomesticAccomDetail(){
         <div className="ml-[80px] mt-[20px]" >
         <div className="flex justify-around">
             <div className="flex items-center gap-[40px]">
-                <Image src={BedSvg} alt="bed image" height={120} width={120}/>
                 <h2 className="text-[36px]">숙박 상세 정보</h2>
             </div>
             <div>

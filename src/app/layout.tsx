@@ -8,7 +8,7 @@ const menuData = [
 
   // {id : 'menu01', name : 'Home', path : '/home'},
   {
-    id: 'menu02', name: '호텔 • 숙소 예약', path : '/domestic/accom',
+    id: 'menu02', name: '호텔 / 숙소 예약', path : '/domestic/accom',
     subMenu: [
       { name: '국내 숙소', path: '/domestic/accom' },
       { name: '해외 호텔', path: '/hotel' },

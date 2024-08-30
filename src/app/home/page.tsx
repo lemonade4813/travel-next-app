@@ -1,51 +1,54 @@
-import { faHotel, faPlane, faUtensils } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Carousel from "./carousel";
+import Image from "next/image";
+
+import MenuEcoImg from "../../asset/menu_eco.jpg";
+import MenuHotel from "../../asset/menu_hotel.jpg";
+import MenuDomAccom from "../../asset/menu_dom_accom.jpg";
+import MenuIntlFlightImg from "../../asset/menu_intl_flight.jpg";
+import MenuRecTourImg from "../../asset/menu_rec_tour.jpg";
 import Link from "next/link";
 
-export default function Home(){
+export default function Home() {
+  const menuItems = [
+    
+    { src: MenuHotel, alt: "hotel", label: "해외 호텔 예약", href : "/hotel" },
+    { src: MenuDomAccom, alt: "accom", label: "국내 숙박시설 예약", href : "/domestic/accom" },
+    { src: MenuIntlFlightImg, alt: "flight", label: "해외 항공편 예약", href : "/flight" },
+    { src: MenuEcoImg, alt: "eco", label: "생태관광 정보", href : "/tourinfo/eco" },
+    { src: MenuRecTourImg, alt: "recTour", label: "문화체육관광부 추천 여행지", href : "/tourinfo/rec" },
+  ];
 
-    return(
+  return (
     <>
-    <Carousel/>
-    <div className="flex min-h-screen flex-col items-center">
-      <div className="flex justify-center items-center gap-20 shadow-md round-lg border-1 bg-pink-100 border-pink-200 rounded-lg p-[30px] w-full">       
-        <div className="flex justify-center items-center gap-[20px]">
-          <h2 className="text-red-500 text-2xl">국내 여행</h2>
-          <div className="flex justify-center gap-12 border-l-4 border-purple-200">
-            {/* <div className="flex flex-col items-center justify-center gap-4 ml-[40px]">
-              <FontAwesomeIcon icon={faPlane} width={96} height={96} className="bg-[#FFD400] border-pink-100 p-[16px] rounded-lg"/>
-              <p>항공편 예약</p>
-            </div> */}
-            <Link href="/domestic/accom">
-              <div className="flex flex-col items-center justify-center gap-4 ml-[40px]">
-                <FontAwesomeIcon icon={faHotel} width={96} height={96} className="bg-[#FFD400] p-[16px] rounded-lg"/>
-                <p>숙박업소 예약</p>
+      <Carousel />
+      <div className="flex min-h-screen flex-col items-center w-full">
+        <div className="grid grid-cols-2 gap-32 p-4 w-1/2 mt-32">
+          {menuItems.map((item, index) => (
+            <Link href={item.href}>
+            <div key={index} className="relative w-full rounded-3xl shadow-lg group">
+              <Image
+                src={item.src}
+                alt={item.alt}
+                className="w-full rounded-3xl"
+              />
+              <div className="absolute inset-0 bg-black opacity-50 group-hover:opacity-10 rounded-3xl transition-opacity duration-300"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-white text-2xl font-bold shadow-md">
+                  {item.label}
+                </span>
               </div>
-            </Link>
-          </div>
-        </div>
-        <div className="flex justify-center items-center gap-[20px]">
-          <h2 className="text-red-500 text-2xl">해외 여행</h2>
-          <div className="flex justify-center gap-12 border-l-4 border-purple-200">
-            <Link href="/flight">
-              <div className="flex flex-col items-center justify-center gap-4 ml-[40px]">
-                <FontAwesomeIcon icon={faPlane} color="#FFF" width={96} height={96} className="bg-[#FF9913] p-[16px] rounded-lg"/>
-                <p>항공편 예약</p>
+              <div className="absolute inset-y-0 right-4 flex items-center justify-center">
+                <div className="bg-white bg-opacity-50 w-8 h-8 flex items-center justify-center rounded-full">
+                  <span className="text-black text-xl font-bold shadow-md">
+                    &gt;
+                  </span>
+                </div>
               </div>
+            </div>
             </Link>
-            <Link href="/hotel">
-              <div className="flex flex-col items-center justify-center gap-4">
-                <FontAwesomeIcon icon={faHotel} color="#FFF" width={96} height={96} className="bg-[#FF9913] p-[16px] rounded-lg"/>
-                <p>호텔 예약</p>
-              </div>
-            </Link>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
-    </>  
-    )
-
-
+    </>
+  );
 }
