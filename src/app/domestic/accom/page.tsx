@@ -20,7 +20,7 @@ export default function DomesticAccom(){
     }
 
     if(error){
-        console.log(error)
+        return <div className="flex justify-center items-center min-h-screen">{error.message}</div>
     }
 
 

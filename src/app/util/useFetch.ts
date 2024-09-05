@@ -23,8 +23,6 @@ import { useEffect, useState } from "react";
 
     const fetchData = async (url: string) => {
 
-
-
       console.log(url)
       setIsLoading(true);
       try {
@@ -43,21 +41,22 @@ import { useEffect, useState } from "react";
         const response = await fetch(url);
 
         if (response.ok) {
-          const data = await response.json();
-          setData(data);
+            const { data } = await response.json();
+            setData(data);
         } else {
-          console.log(response.status)
-          throw new HTTPError(response.status, response.statusText);
+            const { error  : errorMessage } = await response.json();
+            throw new HTTPError(response.status, errorMessage);
         }
-      } catch (err) {
-        if (err instanceof HTTPError) {
-          switch (err.statusCode) {
+      } catch (e) {
+        if (e instanceof HTTPError) {
+          switch (e.statusCode) {
             case 401:
               console.log("로그인이 필요합니다");
               router.push("/login");
               break;
             default:
-              console.error(err);
+              setError(e);
+              console.error(e);
           }
         }
       } finally {
