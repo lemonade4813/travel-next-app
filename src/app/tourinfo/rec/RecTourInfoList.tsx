@@ -1,23 +1,34 @@
-async function getRecTourInfoList() {
+"use client"
 
-    const res = await fetch(
-        'http://api.kcisa.kr/openapi/API_CNV_061/request?serviceKey=e93f8a92-9853-43f7-b093-ea347b1225e2&numOfRows=100&pageNo=1',
-        {headers : {'Accept' : 'application/json'}}
-    );
-    
-    if (!res.ok) {
-        throw new Error('에러가 발생했습니다.');
-    }
+import { useSuspenseQuery } from "@tanstack/react-query"
+import { recTourInfoListQueryOptions } from "./_options/recTourInfoListQueryOptions"
+import Loading from "@/util/components/Loading";
+import ErrorPage from "@/util/components/Error";
 
-    const data = await res.json();
-    return data;
-   
-}    
-
-
+ 
 export default async function RecTourInfoList(){
 
-    const {response : {body : {items : {item : recommendTourList}}}} = await getRecTourInfoList();
+    const { data : 
+                { response : 
+                    { body : 
+                            {   items : 
+                                {   item : recommendTourList }
+                            }
+                        }
+                    }
+                , isPending
+                , error
+                , refetch
+                
+            } = useSuspenseQuery(recTourInfoListQueryOptions());
+
+    if(isPending){
+        return <Loading/>
+    }        
+
+    if(error){
+        return <ErrorPage errorMsg={error.message} refetch={refetch}/>
+    }
 
 
     return(
