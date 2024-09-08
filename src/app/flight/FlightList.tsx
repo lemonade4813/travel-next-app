@@ -1,8 +1,10 @@
 "use client"
 
-import { getFlightList } from "@/app/util/getFlightList";
 import NavButton from "@/components/NavButton";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { flightListQueryOptions } from "./_options/flightListQueryOptions";
+import Loading from "@/util/components/Loading";
+import ErrorPage from "@/util/components/Error";
 
 type IFlightItem = {
 
@@ -24,7 +26,16 @@ type Props = {
 
 export default function FlightList( {searchParams} : Props){
 
-    const { data : flightList } = useSuspenseQuery({queryKey : ['flight', searchParams], queryFn : getFlightList})
+    const { data : flightList , isPending , error , refetch } = useSuspenseQuery(flightListQueryOptions(searchParams));
+
+    if(isPending){
+        return <Loading/>
+    }
+
+    if(error){
+        return <ErrorPage refetch={refetch} errorMsg={error.message}/>
+    }
+
 
     return(
             <div>

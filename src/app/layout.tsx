@@ -2,6 +2,7 @@ import "./globals.css";
 import Link from "next/link";
 import NavLink from "./NavLink";
 import Script from "next/script";
+import RQProvider from "@/components/RQProvider";
 
 
 const menuData = [
@@ -59,9 +60,11 @@ export default function RootLayout({
             </NavLink>
           )}
         </nav>
-        <section className="">
-          {children}
-        </section>
+        <RQProvider>
+          <section>
+            {children}
+          </section>
+        </RQProvider>
       </body>
     </html>
   );

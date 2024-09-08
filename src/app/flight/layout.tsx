@@ -7,10 +7,10 @@ export default function FilghtLayout({
   }>) {
 
     return(
-        <RQProvider>
-          <div className="justify-center">
+          <RQProvider>
+            <div className="justify-center">
               {children}
-          </div>
-        </RQProvider>
+            </div>
+          </RQProvider>
     )
 }

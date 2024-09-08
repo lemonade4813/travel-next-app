@@ -1,57 +1,29 @@
 "use client"
 
-import Loading from "@/app/flight/loading";
-import { useFetch } from "@/app/util/useFetch";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import NoImageSvg from "../../../../asset/noImage.svg";
-import { convertToDateTimeFormat } from "@/app/util/convertToDateTimeFormat";
-
-export default function DomesticAccomDetail() {
-  const router = useRouter();
-  const params = useSearchParams();
-  const contentId = params.get("contentid");
-
-  const { data: detailInfo, error, isLoading } = useFetch(
-    `http://localhost:8080/domestic/accom/detail/${contentId}`
-  );
+import { convertToDateTimeFormat } from "@/util/convertToDateTimeFormat";
+import BackButton from "./_components/BackButton";
+import ReservationButton from "./_components/ReservationButton";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { domesticQueryOptions } from "./_options/domesticQueryOptions";
+import Loading from "@/util/components/Loading";
+import ErrorPage from "@/util/components/Error";
 
 
-  const handleReservation = async (itemId : string, type: string, price: number) => {
-    try {
-      const response = await fetch("http://localhost:8080/domestic/accom/purchase", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contentid: detailInfo.contentid, // from detailInfo
-          itemId,
-          type,
-          price,
-        }),
-      });
+export default function AccomDetailInfo({ contentId } : { contentId : string} ) {
 
-      if (!response.ok) {
-        throw new Error("숙박 예약에 실패하였습니다.");
-      }
+  const { data : detailInfo , isPending, error, refetch } = useSuspenseQuery(domesticQueryOptions(contentId));
 
-        const result = await response.json();
-        console.log(result.message);
-        alert("예약이 성공적으로 완료되었습니다.");
-    } catch (e : unknown) {
-        if(e instanceof Error)
-        console.log(e.message);
-        alert("예약에 실패하였습니다. 다시 시도해주세요.");
-    }
-  };
-
-  if (isLoading) {
-    return <Loading />;
+  if(isPending){
+    return <Loading/>
   }
 
-  
+  if(error){
+    return <ErrorPage refetch={refetch} errorMsg={error.message}/>
+  }
+
   return (
     <>
       {detailInfo && (
@@ -60,14 +32,7 @@ export default function DomesticAccomDetail() {
             <div className="flex items-center gap-[40px]">
               <h2 className="text-[36px]">숙박 상세 정보</h2>
             </div>
-            <div>
-              <button
-                className="bg-red-800 w-[120px] h-[40px] text-white rounded-md"
-                onClick={() => router.back()}
-              >
-                뒤로 가기
-              </button>
-            </div>
+            <BackButton/>
           </div>
           <div className="mt-[50px] gap-[20px] flex flex-col items-center justify-center">
             <div className="flex gap-[20px]">
@@ -156,12 +121,12 @@ export default function DomesticAccomDetail() {
                           index === detailInfo.availInfo.length - 1 ? "" : "border-b"
                         }`}
                       >
-                        <button
-                          onClick={() => handleReservation(item.itemId, item.type, item.price)}
-                          className="bg-red-800 text-white rounded-md w-2/3"
-                        >
-                          예약
-                        </button>
+                      <ReservationButton 
+                        itemId ={detailInfo.itemId} 
+                        type = {detailInfo.type} 
+                        price={detailInfo.price}
+                        contentId={detailInfo.contentid}
+                        />
                       </td>
                     </tr>
                   ))}

@@ -6,11 +6,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from "date-fns/locale";
 
 import { useEffect, useState } from "react";
-import { iataCode } from "../util/iataCode";
-import { getNowDate } from "../util/getNowDate";
+import { iataCode } from "../../util/iataCode";
+import { getNowDate } from "../../util/getNowDate";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { getFlightList } from "../util/getFlightList";
+import { getFlightList } from "./_lib/getFlightList";
 
 export default function FlightSearchOptions(){
 
