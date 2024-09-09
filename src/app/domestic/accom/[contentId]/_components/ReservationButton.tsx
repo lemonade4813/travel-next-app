@@ -5,21 +5,36 @@ type Props = {
     type: string;
     contentId : string;
     price: number;
+    title : string;
   };
 
 
-  const handleReservation = async (itemId : string, type: string, price: number, contentId : string) => {
+  const handleReservation = async (itemId : string, type: string, price: number, contentId : string, title : string) => {
+    
+    console.log(itemId)
+    
+    
     try {
+      console.log(JSON.stringify({
+        contentid : contentId,
+        itemId,
+        type,
+        price,
+        title
+      }))
+
+
       const response = await fetch("http://localhost:8080/domestic/accom/purchase", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          contentId,
+          contentid : contentId,
           itemId,
           type,
           price,
+          title
         }),
       });
 
@@ -38,10 +53,10 @@ type Props = {
   };
 
 
-  export default function ReservationButton({ itemId, type, price, contentId }: Props) {
+  export default function ReservationButton({ itemId, type, price, contentId, title }: Props) {
     return (
       <button
-        onClick={() => handleReservation(itemId, type, price, contentId)}
+        onClick={() => handleReservation(itemId, type, price, contentId, title)}
         className="bg-red-800 text-white rounded-md w-2/3"
       >
         예약

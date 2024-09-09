@@ -122,10 +122,11 @@ export default function AccomDetailInfo({ contentId } : { contentId : string} ) 
                         }`}
                       >
                       <ReservationButton 
-                        itemId ={detailInfo.itemId} 
-                        type = {detailInfo.type} 
-                        price={detailInfo.price}
+                        itemId ={item.itemId} 
+                        type = {item.type} 
+                        price={item.price}
                         contentId={detailInfo.contentid}
+                        title={detailInfo.title}
                         />
                       </td>
                     </tr>
@@ -147,9 +148,6 @@ export default function AccomDetailInfo({ contentId } : { contentId : string} ) 
                 <p>최종 수정일자 : {convertToDateTimeFormat(detailInfo?.modifiedtime)}</p>
               </div>
             </div>
-            <button className="w-1/4 bg-red-800 mt-[20px] w-[120px] h-[50px] text-white rounded-lg">
-              예약하기
-            </button>
           </div>
         </div>
       )}

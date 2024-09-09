@@ -50,7 +50,8 @@ export default function RootLayout({
           <h1 className="font-['GochiHand'] text-2xl text-red-800"><Link href='/'>Bon Voyage</Link></h1>
           <div className="flex gap-4">
             <Link href="/login" className="border-r-2 border-sky-300 pr-[16px]">로그인</Link>
-            <Link href="/signup">회원가입</Link>
+            <Link href="/signup" className="border-r-2 border-sky-300 pr-[16px]">회원가입</Link>
+            <Link href="/mypage/purchase">내 예약정보</Link>
           </div>
         </header>
         <nav className="flex items-center justify-center shadow-xl">
