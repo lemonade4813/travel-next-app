@@ -43,7 +43,7 @@ const menuList = [
 export default function Home() {
   
   return (
-    <>
+    <div className="flex flex-col">
       <Carousel />
       <div className="flex min-h-screen flex-col items-center w-full">
         <div className="p-4 mt-32">
@@ -84,6 +84,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
