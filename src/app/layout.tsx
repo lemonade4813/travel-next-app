@@ -62,7 +62,7 @@ export default function RootLayout({
           )}
         </nav>
         <RQProvider>
-          <section>
+          <section className="flex justify-center items-center">
             {children}
           </section>
         </RQProvider>
