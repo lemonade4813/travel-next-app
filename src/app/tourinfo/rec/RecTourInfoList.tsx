@@ -31,6 +31,9 @@ export default async function RecTourInfoList(){
     }
 
 
+
+
+
     return(
         <div className="flex justify-center items-center mt-[60px]">
             <div className="flex flex-col w-3/5 ">
@@ -45,6 +48,7 @@ export default async function RecTourInfoList(){
                         <a target = "_blan" href={rec.url} className="text-center">
                             <button className="bg-red-700 w-[120px] h-[40px] text-white rounded-md">자세히 보기</button>
                         </a>
+                        
                     </div>
                 ))}
             </div>
