@@ -3,11 +3,9 @@ import Link from "next/link";
 import NavLink from "./NavLink";
 import Script from "next/script";
 import RQProvider from "@/components/RQProvider";
-
+import AlertModal from "@/util/components/modal/AlertModal";
 
 const menuData = [
-
-  // {id : 'menu01', name : 'Home', path : '/home'},
   {
     id: 'menu02', name: '호텔 / 숙소 예약', path : '/domestic/accom',
     subMenu: [
@@ -18,7 +16,7 @@ const menuData = [
   {
     id: 'menu03', name: '항공편 예약', path : '/flight',
     subMenu: [
-      { name: '해외', path: '/flight' },
+      { name: '해외 항공편', path: '/flight' },
     ]
   },
   {
@@ -26,7 +24,6 @@ const menuData = [
     subMenu: [
       { name: '생태 관광', path: '/tourinfo/eco' },
       { name: '문화체육관광부 추천 관광지', path: '/tourinfo/rec' },
-
     ]
   },
 ]
@@ -46,6 +43,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+      <AlertModal />
         <header className="flex items-center justify-around h-16 border-b-4 border-sky-800">
           <h1 className="font-['GochiHand'] text-2xl text-red-800"><Link href='/'>Bon Voyage</Link></h1>
           <div className="flex gap-4">
@@ -66,6 +64,7 @@ export default function RootLayout({
             {children}
           </section>
         </RQProvider>
+
       </body>
     </html>
   );
