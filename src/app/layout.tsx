@@ -43,7 +43,6 @@ export default function RootLayout({
         />
       </head>
       <body>
-      <AlertModal />
         <header className="flex items-center justify-around h-16 border-b-4 border-sky-800">
           <h1 className="font-['GochiHand'] text-2xl text-red-800"><Link href='/'>Bon Voyage</Link></h1>
           <div className="flex gap-4">
@@ -60,11 +59,11 @@ export default function RootLayout({
           )}
         </nav>
         <RQProvider>
+          <AlertModal />
           <section className="flex justify-center items-center">
             {children}
           </section>
         </RQProvider>
-
       </body>
     </html>
   );
