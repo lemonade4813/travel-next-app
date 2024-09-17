@@ -8,10 +8,10 @@ import ReserveSvg from "../../../asset/reserve.svg";
 import HotelSvg from "../../../asset/hotel2.svg";
 import Image from "next/image";
 import Link from "next/link";
-import PurchaseDeleteButton from "./components/DeleteButton";
+import AccomPurchaseDeleteButton from "./components/AccomPurchaseDeleteButton";
 
 
-interface PurchaseItem {
+interface AccomPurchaseItem {
 
     purchaseId: string;
     contentid: string;
@@ -24,7 +24,7 @@ interface PurchaseItem {
 }
 
 
-export default function PurchaseInfo(){
+export default function AccomPurchaseInfo(){
 
     const { data : accomPurchaseInfo, error, isPending, refetch } = useSuspenseQuery(accomPurchaseInfoOptions());
 
@@ -51,7 +51,7 @@ export default function PurchaseInfo(){
             </div>
            
             <div className="grid grid-cols-2 gap-6">
-            {accomPurchaseInfo?.map((purchaseItem : PurchaseItem)=> (
+            {accomPurchaseInfo?.map((purchaseItem : AccomPurchaseItem)=> (
                  <Link href= {`http://localhost:3000/domestic/accom/${purchaseItem.contentid}`}>
                     <div className="mb-12 p-6 bg-gray-100 rounded-lg shadow-sm">
                         <div className="flex flex-col gap-4 text-gray-700">
@@ -70,7 +70,7 @@ export default function PurchaseInfo(){
                             <p className="text-base">
                                 <span className="font-medium text-indigo-600">예약 일자</span> | {new Date(purchaseItem.purchaseDate).toLocaleDateString()}
                             </p>
-                            <PurchaseDeleteButton 
+                            <AccomPurchaseDeleteButton 
                                 contentId={purchaseItem.contentid}
                                 itemId={purchaseItem.itemId}
                                 purchaseId={purchaseItem.purchaseId}                                
