@@ -7,8 +7,7 @@ import { accomPurchaseInfoOptions } from "./_options/accomPurchaseInfoOptions";
 import ReserveSvg from "../../../asset/reserve.svg";
 import HotelSvg from "../../../asset/hotel2.svg";
 import Image from "next/image";
-import Link from "next/link";
-import AccomPurchaseDeleteButton from "./components/AccomPurchaseDeleteButton";
+import AccomPurchaseItem from "./AccomPurchaseItem";
 
 
 interface AccomPurchaseItem {
@@ -36,10 +35,7 @@ export default function AccomPurchaseInfo(){
         return <ErrorPage errorMsg={error.message} refetch={refetch}/>
     }
 
-   
-
     return(
-    
         <div className="w-2/3">
             <div className="flex items-center mt-12 mb-8 gap-4">
                 <Image src={ReserveSvg} alt="reservation image" width={32} height={32}/>
@@ -49,38 +45,16 @@ export default function AccomPurchaseInfo(){
                 <Image src={HotelSvg} alt="lodge image" width={32} height={32}/>
                 <h1 className="text-[32px] text-gray-800 font-bold">국내 숙박 예약</h1>
             </div>
-           
-            <div className="grid grid-cols-2 gap-6">
-            {accomPurchaseInfo?.map((purchaseItem : AccomPurchaseItem)=> (
-                 <Link href= {`http://localhost:3000/domestic/accom/${purchaseItem.contentid}`}>
-                    <div className="mb-12 p-6 bg-gray-100 rounded-lg shadow-sm">
-                        <div className="flex flex-col gap-4 text-gray-700">
-                            <p className="text-lg">
-                                <span className="text-indigo-600">구매 번호</span> | {purchaseItem.purchaseId}
-                            </p>
-                            <p className="text-lg">
-                                <span className="text-indigo-600">숙박 업소</span> | {purchaseItem.title}
-                            </p>
-                            <p className="text-base">
-                                <span className="font-medium text-indigo-600">예약 상품</span> | {purchaseItem.type}
-                            </p>
-                            <p className="text-base">
-                                <span className="font-medium text-indigo-600">가격</span> | {purchaseItem.price.toLocaleString()}원
-                            </p>
-                            <p className="text-base">
-                                <span className="font-medium text-indigo-600">예약 일자</span> | {new Date(purchaseItem.purchaseDate).toLocaleDateString()}
-                            </p>
-                            <AccomPurchaseDeleteButton 
-                                contentId={purchaseItem.contentid}
-                                itemId={purchaseItem.itemId}
-                                purchaseId={purchaseItem.purchaseId}                                
-                            />
-                        </div>
-                    </div>
-                </Link>
-            ))}
-            </div>
+            
+            {accomPurchaseInfo?.length === 0 ? (
+                <div className="text-center text-gray-500">예약 목록이 존재하지 않습니다.</div>
+            ) : (
+                <div className="grid grid-cols-2 gap-6">
+                    {accomPurchaseInfo?.map((purchaseItem : AccomPurchaseItem)=> (
+                        <AccomPurchaseItem {...purchaseItem}/>
+                    ))}
+                </div>
+            )}
         </div>
-       
     )
 }

@@ -9,7 +9,7 @@ import HotelPurchaseInfo from "./HotelPurchaseInfo";
 export default async function MyPurchase(){
 
     return(
-        <div className="flex flex-col">
+        <div className="flex flex-col w-1/2">
             <Suspense fallback={<Loading/>}>
                 <PrefetchBoundary prefetchOptions={accomPurchaseInfoOptions()}>
                     <AccomPurchaseInfo/>

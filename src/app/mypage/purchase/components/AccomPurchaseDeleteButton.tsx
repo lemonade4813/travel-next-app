@@ -46,7 +46,7 @@ const deletePurchase = async (
     }
 };
 
-export default function PurchaseDeleteButton({
+export default function AccomPurchaseDeleteButton({
     contentId,
     itemId,
     purchaseId,

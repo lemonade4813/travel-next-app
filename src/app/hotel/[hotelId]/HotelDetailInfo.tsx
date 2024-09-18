@@ -73,10 +73,12 @@ export default function HotelDetailInfo({ hotelId }: { hotelId: string }) {
         });
   
         if (!response.ok) {
-          throw new Error("결제 요청에 실패했습니다.");
+          throw new Error("예약 요청에 실패했습니다.");
         }
   
-        alert("결제가 성공적으로 처리되었습니다.");
+        alert("예약이 성공적으로 처리되었습니다.");
+        location.href = '/mypage/purchase'
+        
       } catch (e : unknown) {
         if(e instanceof Error){
         console.error(e);
