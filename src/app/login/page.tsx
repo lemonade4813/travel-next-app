@@ -1,12 +1,16 @@
 "use client"
-
+import { setCookie } from 'cookies-next';
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import LoginImg from "../../asset/login.jpg"
+import { useRouter } from "next/navigation";
 
 
 export default function Login() {
-    const { register, handleSubmit, watch, formState: { isValid, errors } } = useForm<any>({ mode: "onSubmit" });
+
+    const router = useRouter();
+
+    const { register, handleSubmit, formState: { isValid, errors } } = useForm<any>({ mode: "onSubmit" });
 
     const onSubmit = async (data: any) => {
         try {
@@ -19,8 +23,10 @@ export default function Login() {
                     }
                 })
 
-            const responseJson = await response.json();
-            localStorage.setItem("token", responseJson.access_token);
+            const { access_token } = await response.json();
+            setCookie('accessToken', access_token, { maxAge: 7 * 24 * 60 * 60 })
+          
+            router.push('/home');
         } catch (e: unknown) {
             if (e instanceof Error) {
                 console.log(e.message);
