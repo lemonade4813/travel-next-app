@@ -8,45 +8,40 @@ import { domesticListQueryOptions } from "./_options/domesticAccomListOptions"
 import Loading from "@/util/components/Loading"
 import ErrorPage from "@/util/components/Error"
 
+export default async function AccomList() {
+    const { data: accomList, isPending, error, refetch } = useSuspenseQuery(domesticListQueryOptions());
 
-export default async function AccomList(){
-
-    const {data : accomList , isPending, error, refetch } = useSuspenseQuery(domesticListQueryOptions());
-
-    if(isPending){
-        return <Loading/>
+    if (isPending) {
+        return <Loading />
     }
 
-    if(error){
-        return <ErrorPage refetch={refetch} errorMsg={error.message}/>
+    if (error) {
+        return <ErrorPage refetch={refetch} errorMsg={error.message} />
     }
 
-    return(
-    <div className="mt-[40px] flex flex-col items-center">
-        {accomList?.map((accomItem : any) => 
-        (
-            <Link href={`/domestic/accom/${accomItem.contentid}`}>
-            <div className="mb-[100px] flex gap-2">
-                <div className="flex flex-col gap-4 w-[800px]">
-                    <p>업소 번호 : {accomItem.contentid}</p>
-                    <p>상호명 : {accomItem.title}</p>
-                    <p>전화번호 : {accomItem.tel}</p>
-                    <p>주소 : {accomItem.addr1} {accomItem.addr2}</p>
-                </div>
-                <Image
-                    src ={accomItem.firstimage ? 
-                          accomItem.firstimage : 
-                          NoImageSvg 
-                } 
-                    alt="accom_image1"
-                    width={160}
-                    height={160}
-                    className="rounded-xl"
-                />
-            </div>
-            </Link>
-            )
-        )}
-    </div>
+    return (
+        <div className="mt-10 flex flex-col items-center">
+            {accomList?.map((accomItem: any) => (
+                <Link key={accomItem.contentid} href={`/domestic/accom/${accomItem.contentid}`} className="mb-10 w-full max-w-lg">
+                    <div className="flex gap-4 p-4 border rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-200">
+                        <div className="flex flex-col justify-between flex-grow">
+                            <div>
+                                <p className="font-bold text-lg">{accomItem.title}</p>
+                                <p className="text-gray-500">{accomItem.addr1} {accomItem.addr2}</p>
+                                <p className="text-gray-600">{accomItem.tel}</p>
+                            </div>
+                            <p className="text-gray-400">숙박 업소 번호 {accomItem.contentid}</p>
+                        </div>
+                        <Image
+                            src={accomItem.firstimage ? accomItem.firstimage : NoImageSvg}
+                            alt="Accommodation Image"
+                            width={160}
+                            height={160}
+                            className="rounded-lg object-cover"
+                        />
+                    </div>
+                </Link>
+            ))}
+        </div>
     )
 }

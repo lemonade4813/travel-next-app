@@ -1,7 +1,7 @@
 import { XMLParser } from "fast-xml-parser";
 
 export async function getEcoTourInfoList() {
-    const res = await fetch('https://apis.data.go.kr/B551011/GreenTourService1/areaBasedList1?serviceKey=GagNlrULGxksg16%2B71Pvi19nM5wOAy66KUlK5LF%2FfIXAe7fOeEPl3FyOBEJbnil91it6z5BSFNXDMxUMI9qEZg%3D%3D&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&areaCode=2&_type=json&arrange=C',
+    const res = await fetch('https://apis.data.go.kr/B551011/GreenTourService1/areaBasedList1?serviceKey=GagNlrULGxksg16%2B71Pvi19nM5wOAy66KUlK5LF%2FfIXAe7fOeEPl3FyOBEJbnil91it6z5BSFNXDMxUMI9qEZg%3D%3D&numOfRows=1000&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json&arrange=C',
         { next: { revalidate: 0 } }
     );
 

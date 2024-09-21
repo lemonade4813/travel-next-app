@@ -43,25 +43,26 @@ export default function RootLayout({
         />
       </head>
       
-
-      <body>
+      <body className="bg-gray-50">
         <div className="relative w-full">
         <AlertModal />  
-        <header className="flex items-center justify-around h-16 border-b-4 border-sky-800">
-          <h1 className="font-['GochiHand'] text-2xl text-red-800"><Link href='/'>Bon Voyage</Link></h1>
-          <div className="flex gap-4">
+        <header className="flex items-center justify-between h-14 px-6 shadow-md bg-white">
+        <h1 className="font-['GochiHand'] text-2xl text-red-800"><Link href='/'>Bon Voyage</Link></h1>
+        <div className="flex gap-4">
             <Link href="/login" className="border-r-2 border-sky-300 pr-[16px]">로그인</Link>
             <Link href="/signup" className="border-r-2 border-sky-300 pr-[16px]">회원가입</Link>
             <Link href="/mypage/purchase">내 예약정보</Link>
           </div>
         </header>
-        <nav className="flex items-center justify-center shadow-xl">
+
+        <nav className="flex items-center justify-center bg-blue-600 shadow-lg">
           {menuData.map((menu) =>
             <NavLink href={menu.path} key={menu.id} subMenu={menu.subMenu}>
               {menu.name}
             </NavLink>
           )}
         </nav>
+
         <RQProvider>
           <section className="flex justify-center items-center">
             {children}

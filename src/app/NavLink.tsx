@@ -8,24 +8,22 @@ export default function NavLink({ href, children, subMenu }: { href: string; chi
     const pathname = usePathname();
 
     return (
-        <div className={`relative flex-1 h-[60px] pb-[4px] group 
-                        ${(pathname === '/home' ||
-                           pathname === '/login'||
-                           pathname === '/signup'
-                        ? 'hidden' : 'none')} 
-                        ${pathname.includes(href) ? 'border-b-2 border-sky-700' : ''}`
-        }>
+        <div className={`relative flex-1 group ${(pathname === '/home' ||
+                            pathname === '/login' ||
+                            pathname === '/signup' ? 'hidden' : 'block')} 
+                        `}
+        >
             <Link href={href}
-                className={`block w-full h-full text-center p-4 border-r-2 border-sky-400
-                    ${pathname.includes(href) ? 'bg-sky-600 text-white' : 'bg-blue-200'}
-                    hover:bg-blue-500 hover:text-white transition-colors duration-300`}
+                className={`block w-full h-16 text-center p-3 text-white flex items-center justify-center
+                    ${pathname.includes(href) ? 'bg-blue-700' : 'bg-blue-600'}
+                    hover:bg-blue-500 transition-all duration-300 ease-in-out`}
             >
                 {children}
-            </Link>
+        </Link>
             {subMenu && (
-                <div className="absolute top-full left-0 hidden w-full bg-white shadow-lg group-hover:block">
+                <div className="absolute top-full left-0 hidden w-full bg-white shadow-lg group-hover:block z-50">
                     {subMenu.map((item) => (
-                        <Link key={item.path} href={item.path} className="block p-4 bg-blue-300 hover:bg-blue-600 text-white">
+                        <Link key={item.path} href={item.path} className="block p-4 text-blue-700 hover:bg-blue-100 transition-colors">
                             {item.name}
                         </Link>
                     ))}
