@@ -4,13 +4,10 @@ import DatePicker from "react-datepicker";
 import styles from '../../scss/DatePicker.module.scss'
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from "date-fns/locale";
-
 import { useEffect, useState } from "react";
 import { iataCode } from "../../util/iataCode";
-import { getNowDate } from "../../util/getNowDate";
 import { useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { getFlightList } from "./_lib/getFlightList";
+
 
 export default function FlightSearchOptions(){
 
@@ -61,7 +58,7 @@ export default function FlightSearchOptions(){
                     onChange={(e) => setDepartCountry(e.target.value)}>
                         <option value="">출발국가 선택</option>
                     {iataCode.map((list) =>
-                        <option value={list.country}>{list.country}</option>
+                        <option key={list.country} value={list.country}>{list.country}</option>
                     )}
                 </select>
                 <p>출발공항 선택</p>
@@ -71,7 +68,7 @@ export default function FlightSearchOptions(){
                     onChange={(e) => setDepartAirport(e.target.value)}>
                         <option value="">출발공항 선택</option>
                     {iataCode.find((list) => list.country === departCountry)?.airport.map((a) =>
-                        <option value={a}>{a}</option>
+                        <option key={a} value={a}>{a}</option>
                     )}
                 </select>
                 <p>도착국가</p>
@@ -81,7 +78,7 @@ export default function FlightSearchOptions(){
                     onChange={(e) => setArriveCountry(e.target.value)}>
                         <option value="">도착국가 선택</option>
                     {iataCode.map((list) =>
-                        <option value={list.country}>{list.country}</option>
+                        <option key={list.country} value={list.country}>{list.country}</option>
                     )}
                 </select>
                 <p>도착공항 선택</p>
@@ -91,7 +88,7 @@ export default function FlightSearchOptions(){
                     onChange={(e) => setArriveAirport(e.target.value)}>
                         <option value="">도착공항 선택</option>
                     {iataCode.find((list) => list.country === arriveCountry)?.airport.map((a) =>
-                        <option value={a}>{a}</option>
+                        <option key={a} value={a}>{a}</option>
                     )}
                 </select>
             </div>

@@ -12,7 +12,7 @@ import Loading from "@/util/components/Loading";
 import ErrorPage from "@/util/components/Error";
 
 
-export default async function FlightDetailInfo({ offerId }: { offerId: number }) {
+export default function FlightDetailInfo({ offerId }: { offerId: number }) {
 
 
     const {data : flightDetailInfo, isPending, error, refetch }  = useSuspenseQuery(flightDetailInfoQueryOptions(offerId))

@@ -51,7 +51,7 @@ export default function AccomPurchaseInfo(){
             ) : (
                 <div className="grid grid-cols-2 gap-6">
                     {accomPurchaseInfo?.map((purchaseItem : AccomPurchaseItem)=> (
-                        <AccomPurchaseItem {...purchaseItem}/>
+                        <AccomPurchaseItem key={purchaseItem.purchaseId} {...purchaseItem}/>
                     ))}
                 </div>
             )}

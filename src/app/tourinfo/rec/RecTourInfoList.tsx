@@ -7,7 +7,7 @@ import ErrorPage from "@/util/components/Error";
 import Image from "next/image";
 import ThumbsUpSvg from "@/asset/thumbsUp.svg";
  
-export default async function RecTourInfoList(){
+export default function RecTourInfoList(){
 
     const { data : 
                 { response : 
@@ -39,8 +39,8 @@ export default async function RecTourInfoList(){
                 <Image src={ThumbsUpSvg} width={32} height={32} alt="leaf img"/>
                 <h2 className="leading-[36px] text-[36px]">문화체육관광부 추천 여행지</h2>
             </div>
-                {recommendTourList?.map((rec : any) => (
-                    <div className="flex flex-col border-b-2 border-gray-300 mb-[100px] pb-[60px]">
+                {recommendTourList?.map((rec : any, index : number) => (
+                    <div key={index} className="flex flex-col border-b-2 border-gray-300 mb-[100px] pb-[60px]">
                         <div className="flex flex-col gap-[30px] mb-[100px]">
                             <p>작성자 | {rec.creator}</p>
                             <p>제목 | {rec.title}</p>

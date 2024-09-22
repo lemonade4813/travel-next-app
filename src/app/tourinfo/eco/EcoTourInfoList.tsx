@@ -28,7 +28,7 @@ const regions = [
   { name: "전라남도", code: "38" },
 ];
 
-export default async function EcoTourInfoList() {
+export default function EcoTourInfoList() {
     const [areacodes, setAreacodes] = useState<string[]>([]); 
     const { data: { response: { body: { items: { item: ecoLists } } } }, isPending, error, refetch } = useSuspenseQuery(ecoTourInfoListQueryOptions());
 

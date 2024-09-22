@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import HotelSvg from "@/asset/home/hotel.svg"
 
-export default async function HotelList() {
+export default function HotelList() {
   const router = useRouter();
   const { data: hotelList, isPending, error, refetch } = useSuspenseQuery(hotelListQueryOptions());
 
