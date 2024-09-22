@@ -1,13 +1,15 @@
 "use client"
 
 import Image from "next/image"
-import NoImage from "../../../asset/noImage.svg"
+import NoImage from "@/asset/noImage.svg"
 import { convertToDateTimeFormat } from "@/util/convertToDateTimeFormat";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ecoTourInfoListQueryOptions } from "./_options/ecoTourInfoListQueryOptions";
 import Loading from "@/util/components/Loading";
 import ErrorPage from "@/util/components/Error";
 import { useState } from "react";
+import LeafSvg from "@/asset/leaf.svg";
+
 
 interface IEcoTourInfoItem {
     [key: string]: string;
@@ -55,13 +57,16 @@ export default async function EcoTourInfoList() {
 
     return (
         <div className="p-16">
-            <h2 className="text-[36px] mb-[50px]">생태 관광 정보</h2>
+            <div className="flex mb-[50px] gap-4">
+                <Image src={LeafSvg} width={32} height={32} alt="leaf img"/>
+                <h2 className="leading-[36px] text-[36px]">생태 관광 정보</h2>
+            </div>
             <div className="flex">
                 <div className="space-y-4 w-1/5 pr-6 mr-[100px] border-pink-200 border-r-2">
                     <p className="text-[24px]">조건 필터</p>
                     <div className="border-b-2 pb-4">
-                        <p className="pt-4 border-b-2">지역별</p>
-                        <div className="grid grid-cols-2 gap-4 pt-4">
+                        <p className="pt-4">지역별</p>
+                        <div className="grid grid-cols-2 gap-4 pt-4 place-items-center">
                         {regions.map((region) => (
                             <button
                                 key={region.code}

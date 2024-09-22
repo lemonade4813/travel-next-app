@@ -4,7 +4,8 @@ import { useSuspenseQuery } from "@tanstack/react-query"
 import { recTourInfoListQueryOptions } from "./_options/recTourInfoListQueryOptions"
 import Loading from "@/util/components/Loading";
 import ErrorPage from "@/util/components/Error";
-
+import Image from "next/image";
+import ThumbsUpSvg from "@/asset/thumbsUp.svg";
  
 export default async function RecTourInfoList(){
 
@@ -31,12 +32,13 @@ export default async function RecTourInfoList(){
     }
 
 
-
-
-
     return(
         <div className="flex justify-center items-center mt-[60px]">
             <div className="flex flex-col w-3/5 ">
+            <div className="flex mb-[50px] gap-4">
+                <Image src={ThumbsUpSvg} width={32} height={32} alt="leaf img"/>
+                <h2 className="leading-[36px] text-[36px]">문화체육관광부 추천 여행지</h2>
+            </div>
                 {recommendTourList?.map((rec : any) => (
                     <div className="flex flex-col border-b-2 border-gray-300 mb-[100px] pb-[60px]">
                         <div className="flex flex-col gap-[30px] mb-[100px]">

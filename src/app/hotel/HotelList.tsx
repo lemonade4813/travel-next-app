@@ -5,6 +5,8 @@ import { hotelListQueryOptions } from "./_options/hotelListQueryOptions";
 import Loading from "@/util/components/Loading";
 import ErrorPage from "@/util/components/Error";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import HotelSvg from "@/asset/home/hotel.svg"
 
 export default async function HotelList() {
   const router = useRouter();
@@ -23,8 +25,11 @@ export default async function HotelList() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h2 className="text-2xl font-bold mb-6">호텔 예약</h2>
+    <div className="flex min-h-screen flex-col p-24">
+       <div className="flex mb-[50px] gap-4">
+          <Image src={HotelSvg} width={32} height={32} alt="leaf img"/>
+          <h2 className="leading-[36px] text-[36px]">해외 호텔 예약</h2>
+       </div>
       <table className="w-full table-auto border-collapse">
         <thead>
           <tr className="border-b-2 border-pink-400 h-12">

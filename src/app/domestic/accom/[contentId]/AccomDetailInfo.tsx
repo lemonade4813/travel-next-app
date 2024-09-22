@@ -10,6 +10,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { domesticQueryOptions } from "./_options/domesticQueryOptions";
 import Loading from "@/util/components/Loading";
 import ErrorPage from "@/util/components/Error";
+import HotelSvg from "@/asset/home/hotel.svg"
 
 export default function AccomDetailInfo({ contentId }: { contentId: string }) {
   const {
@@ -31,8 +32,11 @@ export default function AccomDetailInfo({ contentId }: { contentId: string }) {
     <>
       {detailInfo && (
         <div className="ml-[80px] mt-[20px]">
-          <div className="flex justify-between items-center">
-            <h2 className="text-[32px] font-semibold">숙박 상세 정보</h2>
+          <div className="flex justify-between items-center mt-8 mb-32 gap-4">
+            <div className="flex gap-4 justify-between items-center">
+              <Image src={HotelSvg} width={32} height={32} alt="leaf img"/>
+              <h2 className="leading-[36px] text-[36px]">국내 숙소 예약 상세</h2>
+            </div>
             <BackButton />
           </div>
 

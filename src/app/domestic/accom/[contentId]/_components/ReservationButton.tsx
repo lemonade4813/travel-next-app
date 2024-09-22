@@ -10,10 +10,7 @@ type Props = {
 
 
   const handleReservation = async (itemId : string, type: string, price: number, contentId : string, title : string) => {
-    
-    console.log(itemId)
-    
-    
+      
     try {
       console.log(JSON.stringify({
         contentid : contentId,
@@ -44,6 +41,7 @@ type Props = {
 
         const result = await response.json();
         console.log(result.message);
+        location.href ='/mypage/purchase'
         alert("예약이 성공적으로 완료되었습니다.");
     } catch (e : unknown) {
         if(e instanceof Error)

@@ -4,6 +4,8 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { hotelDetailInfoQueryOptions } from "./_options/hotelDetailInfoQueryOptions";
 import Loading from "@/util/components/Loading";
 import ErrorPage from "@/util/components/Error";
+import HotelSvg from "@/asset/home/hotel.svg"
+import Image from "next/image";
 
 interface Offer {
   offerId: string;
@@ -59,6 +61,9 @@ export default function HotelDetailInfo({ hotelId }: { hotelId: string }) {
     const hotelName = hotelDetailInfo?.name;
     const offers: Offer[] = hotelDetailInfo?.offers;
   
+
+    console.log(hotelDetailInfo)
+
     const handlePurchase = async (offerId: string) => {
       try {
         const response = await fetch("http://localhost:8080/hotel/purchase", {
@@ -78,7 +83,7 @@ export default function HotelDetailInfo({ hotelId }: { hotelId: string }) {
   
         alert("예약이 성공적으로 처리되었습니다.");
         location.href = '/mypage/purchase'
-        
+
       } catch (e : unknown) {
         if(e instanceof Error){
         console.error(e);
@@ -91,7 +96,12 @@ export default function HotelDetailInfo({ hotelId }: { hotelId: string }) {
       <>
         {hotelDetailInfo ? (
           <div className="container mx-auto p-4">
+              <div className="flex gap-4 items-center mt-12 mb-20">
+              <Image src={HotelSvg} width={32} height={32} alt="leaf img"/>
+              <h2 className="leading-[36px] text-[36px]">해외 호텔 예약</h2>
+            </div>
             <div className="bg-white shadow-md rounded-lg p-6">
+          
               <h2 className="text-3xl font-semibold mb-4">{hotelName}</h2>
               <p className="text-gray-600 mb-6">
                 <strong>호텔 ID:</strong> {hotelDetailInfo.hotelId} | <strong>도시 :</strong> {hotelDetailInfo.cityCode}

@@ -1,14 +1,14 @@
 import Carousel from "./carousel";
 import Image from "next/image";
 
-import MenuEcoImg from "../../asset/menu_eco.jpg";
-import MenuHotel from "../../asset/menu_hotel.jpg";
-import MenuDomAccom from "../../asset/menu_dom_accom.jpg";
-import MenuIntlFlightImg from "../../asset/menu_intl_flight.jpg";
-import MenuRecTourImg from "../../asset/menu_rec_tour.jpg";
-import AirplaneSvg from "../../asset/home/airplane.svg";
-import HotelSvg from "../../asset/home/hotel.svg";
-import InfoSvg from "../../asset/home/info.svg";
+import MenuEcoImg from "@/asset/menu_eco.jpg";
+import MenuHotel from "@/asset/menu_hotel.jpg";
+import MenuDomAccom from "@/asset/menu_dom_accom.jpg";
+import MenuIntlFlightImg from "@/asset/menu_intl_flight.jpg";
+import MenuRecTourImg from "@/asset/menu_rec_tour.jpg";
+import AirplaneSvg from "@/asset/home/airplane.svg";
+import HotelSvg from "@/asset/home/hotel.svg";
+import InfoSvg from "@/asset/home/info.svg";
 import Link from "next/link";
 
 const menuList = [
