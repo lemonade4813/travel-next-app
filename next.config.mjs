@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {reactStrictMode : true, images : {domains : ["tong.visitkorea.or.kr"]}, output : 'export'};
+const nextConfig = {reactStrictMode : true, images : {domains : ["tong.visitkorea.or.kr"]}};
 
 export default nextConfig;
 
