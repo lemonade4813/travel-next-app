@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import EcoTourInfoList from "./EcoTourInfoList";
+import EcoTourInfoList from "@/app/tourinfo/eco/EcoTourInfoList";
 import { PrefetchBoundary } from "@/util/components/PrefetchBoundary";
 import { ecoTourInfoListQueryOptions } from "./_options/ecoTourInfoListQueryOptions";
 import Loading from "@/util/components/Loading";

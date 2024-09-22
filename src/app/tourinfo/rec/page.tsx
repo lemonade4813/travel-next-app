@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import RecTourInfoList from "./RecTourInfoList";
+import RecTourInfoList from "@/app/tourinfo/rec/RecTourInfoList";
 import { recTourInfoListQueryOptions } from "./_options/recTourInfoListQueryOptions";
 import { PrefetchBoundary } from "@/util/components/PrefetchBoundary";
 import Loading from "@/util/components/Loading";
