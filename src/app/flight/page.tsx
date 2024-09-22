@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import 'react-datepicker/dist/react-datepicker.css';
-import FlightSearchOptions from "./FilghtSearchOptions";
+import FlightSearchOptions from "./FlightSearchOptions";
 import FlightList from "./FlightList";
 import { PrefetchBoundary } from "@/util/components/PrefetchBoundary";
 import { flightListQueryOptions } from "./_options/flightListQueryOptions";
