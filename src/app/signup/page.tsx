@@ -14,7 +14,7 @@ export default function Signup(){
     const submitSignupInfo = (data : any) => {
         console.log(data)
 
-        fetch('http://localhost:8080/signup', 
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/signup`, 
                 {
                         method : 'POST', 
                         body : JSON.stringify(data),
