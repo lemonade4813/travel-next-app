@@ -2,7 +2,7 @@ export async function getFlightList(searchParams: { date: Date; departAirport: s
     
     const { date, departAirport, arriveAirport } = searchParams;
 
-    const res = await fetch(`http://localhost:8080/flight/offer?date=${date}&departAirport=${departAirport}&arriveAirport=${arriveAirport}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/flight/offer?date=${date}&departAirport=${departAirport}&arriveAirport=${arriveAirport}`, {
         next: { revalidate: 0 },
     });
 

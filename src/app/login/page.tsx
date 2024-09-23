@@ -14,7 +14,7 @@ export default function Login() {
 
     const onSubmit = async (data: any) => {
         try {
-            const response = await fetch('http://localhost:8080/login',
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/login`,
                 {
                     method: 'POST',
                     body: JSON.stringify(data),

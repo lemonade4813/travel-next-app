@@ -1,7 +1,7 @@
 export async function getAccomPurchaseInfo() {
     
 
-    const res = await fetch(`http://localhost:8080/domestic/accom/purchaseinfo?userId=user01`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/domestic/accom/purchaseinfo?userId=user01`, {
         next: { revalidate: 0 },
     });
 

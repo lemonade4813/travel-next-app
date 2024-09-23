@@ -1,7 +1,7 @@
 export async function getDomesticAccomList() {
     
 
-    const res = await fetch(`http://localhost:8080/domestic/accom`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/domestic/accom`, {
         next: { revalidate: 0 },
     });
 
