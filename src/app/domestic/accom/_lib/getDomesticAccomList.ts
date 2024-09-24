@@ -5,6 +5,11 @@ export async function getDomesticAccomList() {
         next: { revalidate: 0 },
     });
 
+
+    if(!res.ok){
+        throw new Error("에러가 발생했습니다.");
+    }
+
     const { data } = await res.json();
     
     return data;

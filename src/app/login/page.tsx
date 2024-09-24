@@ -1,8 +1,9 @@
 "use client"
+
 import { setCookie } from 'cookies-next';
 import Image from "next/image";
 import { useForm } from "react-hook-form";
-import LoginImg from "../../asset/login.jpg"
+import LoginImg from "@/asset/login.jpg"
 import { useRouter } from "next/navigation";
 
 
@@ -14,7 +15,7 @@ export default function Login() {
 
     const onSubmit = async (data: any) => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/login`,
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/login`,
                 {
                     method: 'POST',
                     body: JSON.stringify(data),
@@ -23,7 +24,12 @@ export default function Login() {
                     }
                 })
 
-            const { access_token } = await response.json();
+            if(!res.ok){
+                throw new Error("로그인에 실패하였습니다");
+            }
+
+
+            const { access_token } = await res.json();
             setCookie('accessToken', access_token, { maxAge: 7 * 24 * 60 * 60 })
           
             router.push('/home');

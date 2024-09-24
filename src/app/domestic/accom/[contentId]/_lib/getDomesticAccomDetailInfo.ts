@@ -6,7 +6,7 @@ export const getDomesticAccomDetailInfo = async (contentId : string) => {
                               })
   
     if(!res.ok){
-      throw new Error('오류가 발생했습니다.')
+      throw new Error('오류가 발생했습니다.');
     }
   
     const { data } = await res.json();

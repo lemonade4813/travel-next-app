@@ -4,6 +4,8 @@ import NavLink from "./NavLink";
 import Script from "next/script";
 import RQProvider from "@/components/RQProvider";
 import AlertModal from "@/util/components/modal/AlertModal";
+import HeaderMenu from "./HeaderMenu";
+
 
 const menuData = [
   {
@@ -34,6 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
+
   return (
     <html lang="ko">
       <head>
@@ -48,11 +51,7 @@ export default function RootLayout({
         <AlertModal />  
         <header className="flex items-center justify-between h-14 px-6 shadow-md bg-white">
         <h1 className="font-['GochiHand'] text-2xl text-red-800"><Link href='/'>Bon Voyage</Link></h1>
-        <div className="flex gap-4">
-            <Link href="/login" className="border-r-2 border-sky-300 pr-[16px]">로그인</Link>
-            <Link href="/signup" className="border-r-2 border-sky-300 pr-[16px]">회원가입</Link>
-            <Link href="/mypage/purchase">내 예약정보</Link>
-          </div>
+          <HeaderMenu/>
         </header>
 
         <nav className="flex items-center justify-center bg-blue-600 shadow-lg">
@@ -62,7 +61,6 @@ export default function RootLayout({
             </NavLink>
           )}
         </nav>
-
         <RQProvider>
           <section className="flex justify-center items-center">
             {children}
