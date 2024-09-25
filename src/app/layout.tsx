@@ -5,6 +5,7 @@ import Script from "next/script";
 import RQProvider from "@/components/RQProvider";
 import AlertModal from "@/util/components/modal/AlertModal";
 import HeaderMenu from "./HeaderMenu";
+import { LoginProvider } from "@/LoginContext";
 
 
 const menuData = [
@@ -47,6 +48,7 @@ export default function RootLayout({
       </head>
       
       <body className="bg-gray-50">
+        <LoginProvider>
         <div className="relative w-full">
         <AlertModal />  
         <header className="flex items-center justify-between h-14 px-6 shadow-md bg-white">
@@ -67,6 +69,7 @@ export default function RootLayout({
           </section>
         </RQProvider>
         </div>
+        </LoginProvider>
       </body>
     </html>
   );

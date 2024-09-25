@@ -1,5 +1,7 @@
 "use client"
 
+import { getCookie } from "cookies-next";
+
 type Props = {
     itemId: string;
     type: string;
@@ -25,6 +27,7 @@ type Props = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization" : `Bearer ${getCookie('accessToken')}`
         },
         body: JSON.stringify({
           contentid : contentId,

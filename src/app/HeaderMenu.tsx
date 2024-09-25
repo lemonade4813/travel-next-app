@@ -1,39 +1,33 @@
-"use client"
+"use client";
 
-import { deleteCookie, getCookie } from "cookies-next";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
+import { useLogin } from "@/LoginContext";
+import { deleteCookie } from "cookies-next";
 
-export default function HeaderMenu(){
-
+export default function HeaderMenu() {
+    const { isLoggedIn, setIsLoggedIn } = useLogin();
     const router = useRouter();
 
-    const [accessToken, setAccessToken] = useState<string | null>(null);
-
-    useEffect(() => {
-        const token = getCookie('accessToken');
-        setAccessToken(token ? String(token) : null);
-    }, []);
-
-    const logout = () => {
+    const handleLogout = () => {
         deleteCookie('accessToken');
+        setIsLoggedIn(false);
         router.push('/');
-        // 현재 로그아웃 API 미구현
-    }
+    };
 
-    return(
-        <div className="flex gap-4">
-            {!accessToken ?
+    return (
+        <nav className="flex gap-4">
+            {!isLoggedIn ? (
                 <>
                     <Link href="/login" className="border-r-2 border-sky-300 pr-[16px]">로그인</Link>
                     <Link href="/signup">회원가입</Link>
-                </> :
+                </>
+            ) : (
                 <>
                     <Link href="/mypage/purchase" className="border-r-2 border-sky-300 pr-[16px]">내 예약정보</Link>
-                    <p onClick={logout}>로그아웃</p>
+                    <button onClick={handleLogout}>로그아웃</button>
                 </>
-            }
-        </div>
-    )
+            )}
+        </nav>
+    );
 }

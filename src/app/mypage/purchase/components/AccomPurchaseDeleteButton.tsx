@@ -1,6 +1,7 @@
 "use client"
 
 import { isModalOpenAtom, modalMessageAtom } from '@/util/store/alertModal';
+import { getCookie } from 'cookies-next';
 import { useSetAtom } from 'jotai';
 
 type Props = {
@@ -17,12 +18,13 @@ const deletePurchase = async (
     setModalOpen: (open: boolean) => void
 ) => {
     try {
-        const response = await fetch(
+        const res = await fetch(
             `http://localhost:8080/domestic/accom/purchase?contentid=${contentId}&itemId=${itemId}&purchaseId=${purchaseId}`,
             {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization" : `Bearer ${getCookie('accessToken')}`
                 },
                 body: JSON.stringify({
                     contentid: contentId,
@@ -32,11 +34,11 @@ const deletePurchase = async (
             }
         );
 
-        if (!response.ok) {
+        if (!res.ok) {
             throw new Error("예약취소가 실패하였습니다.");
         }
 
-        const result = await response.json();
+        const result = await res.json();
         setModalMessage("예약취소가 성공적으로 완료되었습니다.");
         setModalOpen(true);
         console.log(result.message);

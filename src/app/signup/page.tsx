@@ -2,11 +2,12 @@
 
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
-import SignupImg from "../../asset/signup2.jpg"
+import SignupImg from "@/asset/signup2.jpg"
 import Image from "next/image";
 
 
 export default function Signup(){
+
     const router = useRouter();
 
     const {register, watch, handleSubmit, formState : {errors, isValid}} = useForm<any>({mode : "onChange"})
@@ -38,7 +39,8 @@ export default function Signup(){
                     <Image
                         src={SignupImg}
                         alt="Login Image"
-                        className="object-cover w-full h-full filter grayscale-[100%] opacity-100"
+                        className="object-cover h-full filter grayscale-[100%] opacity-100"
+                        style={{ width: '100vw', height: 'auto' }}
                     />
             </div>
             <div className="border">

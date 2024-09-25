@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HotelPurchaseDeleteButton from "./components/HotelPurchaseDeleteButton";
 
 interface HotelPurchaseItem {
     
@@ -24,7 +25,11 @@ export default function HotelPurchaseItem(purchaseItem : HotelPurchaseItem){
                     <p className="text-base">
                         <span className="font-medium text-indigo-600">예약 상품</span> | {purchaseItem.offerId}
                     </p>
-                    <button className="w-full h-[40px] bg-purple-500 rounded-md text-white">예약 취소하기</button>
+                    <HotelPurchaseDeleteButton
+                        purchaseId={purchaseItem.purchaseId}
+                        hotelId={purchaseItem.hotelId}
+                        offerId={purchaseItem.offerId}                               
+                   />
                 </div>
             </div>
         </Link>

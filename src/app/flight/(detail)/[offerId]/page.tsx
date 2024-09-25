@@ -1,8 +1,3 @@
-import parserISO8601Duration from "@/util/parseISO8601Duration";
-import AirplaneSvg from "../../../../asset/airplane.svg" 
-import Image from "next/image";
-import { carriers } from "@/util/carrier";
-import { aircraft } from "@/util/aircraft";
 import "./style.css"
 import { Suspense } from "react";
 import { PrefetchBoundary } from "@/util/components/PrefetchBoundary";

@@ -5,11 +5,14 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import LoginImg from "@/asset/login.jpg"
 import { useRouter } from "next/navigation";
+import { useLogin } from '@/LoginContext';
 
 
 export default function Login() {
 
     const router = useRouter();
+
+    const { setIsLoggedIn } = useLogin();
 
     const { register, handleSubmit, formState: { isValid, errors } } = useForm<any>({ mode: "onSubmit" });
 
@@ -28,11 +31,14 @@ export default function Login() {
                 throw new Error("로그인에 실패하였습니다");
             }
 
+            const { access_token : accessToken } = await res.json();
+            
+            if(accessToken){
+                setCookie('accessToken', accessToken, { maxAge: 7 * 24 * 60 * 60 });
+                setIsLoggedIn(true);
+                router.push('/');
+            }
 
-            const { access_token } = await res.json();
-            setCookie('accessToken', access_token, { maxAge: 7 * 24 * 60 * 60 })
-          
-            router.push('/home');
         } catch (e: unknown) {
             if (e instanceof Error) {
                 console.log(e.message);
@@ -47,7 +53,8 @@ export default function Login() {
                     <Image
                         src={LoginImg}
                         alt="Login Image"
-                        className="object-cover w-full h-full filter grayscale-[100%] opacity-90"
+                        className="object-cover h-full filter grayscale-[100%] opacity-90"
+                        style={{ width: '100vw', height: 'auto' }}
                     />
                 </div>
                 <div className="border shadow-lg">
