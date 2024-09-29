@@ -8,10 +8,17 @@ type Props = {
     contentId : string;
     price: number;
     title : string;
+    checkInDate : string;
   };
 
 
-  const handleReservation = async (itemId : string, type: string, price: number, contentId : string, title : string) => {
+  const handleReservation = async (itemId : string, 
+                                   type: string, 
+                                   price: number, 
+                                   contentId : string, 
+                                   title : string,
+                                   checkInDate : string
+                                   ) => {
       
     try {
       console.log(JSON.stringify({
@@ -19,7 +26,8 @@ type Props = {
         itemId,
         type,
         price,
-        title
+        title,
+        checkInDate
       }))
 
 
@@ -34,7 +42,8 @@ type Props = {
           itemId,
           type,
           price,
-          title
+          title,
+          checkInDate
         }),
       });
 
@@ -54,10 +63,10 @@ type Props = {
   };
 
 
-  export default function ReservationButton({ itemId, type, price, contentId, title }: Props) {
+  export default function ReservationButton({ itemId, type, price, contentId, title, checkInDate }: Props) {
     return (
       <button
-        onClick={() => handleReservation(itemId, type, price, contentId, title)}
+        onClick={() => handleReservation(itemId, type, price, contentId, title, checkInDate)}
         className="bg-red-800 text-white rounded-md w-2/3"
       >
         예약

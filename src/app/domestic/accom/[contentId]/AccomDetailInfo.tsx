@@ -102,6 +102,7 @@ export default function AccomDetailInfo({ contentId }: { contentId: string }) {
                         price={item.price}
                         contentId={detailInfo.contentid}
                         title={detailInfo.title}
+                        checkInDate={item.checkInDate}
                       />
                     </td>
                   </tr>
