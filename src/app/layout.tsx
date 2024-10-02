@@ -56,7 +56,7 @@ export default function RootLayout({
           <HeaderMenu/>
         </header>
 
-        <nav className="flex items-center justify-center bg-blue-600 shadow-lg">
+        <nav className="flex flex-col sm:flex-row sm:w-full items-center justify-center bg-blue-600 shadow-lg">
           {menuData.map((menu) =>
             <NavLink href={menu.path} key={menu.id} subMenu={menu.subMenu}>
               {menu.name}
