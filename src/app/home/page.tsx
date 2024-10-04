@@ -53,7 +53,7 @@ export default function Home() {
                 <Image width ={30} height={30} src={menu.mainMenuSvg} alt="main menu image"/>
                 <h2 className="text-3xl font-bold">{menu.mainMenuName}</h2>
               </div>
-              <div className="flex space-x-32">
+              <div className="flex flex-col sm:flex-row space-y-32 sm:space-y-0 sm:space-x-32">
                 {menu.items.map((item, itemIndex) => (
                   <Link href={item.href} key={itemIndex}>
                     <div className="relative w-80 rounded-3xl shadow-lg group flex-shrink-0">
