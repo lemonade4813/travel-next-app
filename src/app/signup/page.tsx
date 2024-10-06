@@ -35,14 +35,14 @@ export default function Signup(){
     return(
         
         <div>
-            <div className="relative w-full h-[240px] flex-shrink-0">
+         <div className="w-full sm:h-auto flex-shrink-0">
                     <Image
                         src={SignupImg}
                         alt="Login Image"
-                        className="object-cover h-full filter grayscale-[100%] opacity-100"
+                        className="object-cover h-full filter grayscale-[100%] opacity-90"
                         style={{ width: '100vw', height: 'auto' }}
                     />
-            </div>
+                </div>
             <div className="border">
                 <div className="flex justify-center items-center min-h-screen"> 
                     <div className="w-[400px]">

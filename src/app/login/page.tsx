@@ -49,7 +49,7 @@ export default function Login() {
     return (
         <div>
             <div className="w-full overflow-hidden">
-                <div className="w-full h-[240px] flex-shrink-0">
+                <div className="w-full sm:h-auto flex-shrink-0">
                     <Image
                         src={LoginImg}
                         alt="Login Image"

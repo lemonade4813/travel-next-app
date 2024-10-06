@@ -61,12 +61,12 @@ export default function EcoTourInfoList() {
                 <Image src={LeafSvg} width={32} height={32} alt="leaf img"/>
                 <h2 className="leading-[36px] text-[36px]">생태 관광 정보</h2>
             </div>
-            <div className="flex">
-                <div className="space-y-4 w-1/5 pr-6 mr-[100px] border-pink-200 border-r-2">
+            <div className="flex flex-col sm:flex-row">
+                <div className="w-full mb-12 sm:w-1/5 space-y-4 pr-6 mr-[100px] sm:border-pink-200 sm:border-r-2">
                     <p className="text-[24px]">조건 필터</p>
                     <div className="border-b-2 pb-4">
                         <p className="pt-4">지역별</p>
-                        <div className="grid grid-cols-2 gap-4 pt-4 place-items-center">
+                        <div className="w-full grid-cols-3 grid sm:grid-cols-2 gap-4 pt-4 place-items-center">
                         {regions.map((region) => (
                             <button
                                 key={region.code}
@@ -83,7 +83,7 @@ export default function EcoTourInfoList() {
                     </div>
                     </div>
                 </div>
-                <div className="w-4/5">
+                <div className="sm:w-4/5"> 
                     {filteredEcoLists?.map((eco: IEcoTourInfoItem, index: number) => (
                         <div key={eco.contentid} className="mb-[80px]">
                             <h2 className="text-[30px] mb-[40px]">{index + 1}. {eco.title}</h2>
