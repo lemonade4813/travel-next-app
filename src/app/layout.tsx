@@ -26,6 +26,7 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-gray-50">
+        <script src='https://cdn.iamport.kr/v1/iamport.js' async></script>
         <LoginProvider>
         <div className="relative w-full">
           <AlertModal />  
