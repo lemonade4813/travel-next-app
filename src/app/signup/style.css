@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+
+    .signupInput {
+        @apply shadow-sm bg-pink-100 w-[240px] h-12 rounded-lg p-4
+
+    }
+
+    .signupInputMessage {
+        @apply text-[#DC143C] text-sm mt-2 max-w-[300px]
+    }
+
+}
