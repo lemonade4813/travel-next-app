@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import LoginImg from "@/asset/login.jpg"
 import { useRouter } from "next/navigation";
-import { useLogin } from '@/LoginContext';
+import { useLogin } from '@/util/components/context/LoginContext';
 import "./style.css"
 
 export default function Login() {

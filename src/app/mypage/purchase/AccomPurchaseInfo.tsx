@@ -4,8 +4,8 @@ import ErrorPage from "@/util/components/Error";
 import Loading from "@/util/components/Loading";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { accomPurchaseInfoOptions } from "./_options/accomPurchaseInfoOptions";
-import ReserveSvg from "../../../asset/reserve.svg";
-import HotelSvg from "../../../asset/hotel2.svg";
+import ReserveSvg from "@/asset/reserve.svg";
+import HotelSvg from "@/asset/hotel2.svg";
 import Image from "next/image";
 import AccomPurchaseItem from "./AccomPurchaseItem";
 

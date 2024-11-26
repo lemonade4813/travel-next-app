@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 
 export async function getDomesticAccomList() {
 
-    const res = await fetch('http://localhost:3000/api/domestic/accom');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/domestic/accom`);
 
 
     if(!res.ok){

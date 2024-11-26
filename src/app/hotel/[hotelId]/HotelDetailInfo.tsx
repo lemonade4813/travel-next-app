@@ -66,7 +66,7 @@ export default function HotelDetailInfo({ hotelId }: { hotelId: string }) {
 
     const handlePurchase = async (offerId: string) => {
       try {
-        const response = await fetch("http://localhost:8080/hotel/purchase", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/hotel/purchase`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

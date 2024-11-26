@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import NoImageSvg from "../../../../asset/noImage.svg";
+import NoImageSvg from "@/asset/noImage.svg";
 import { convertToDateTimeFormat } from "@/util/convertToDateTimeFormat";
 import BackButton from "./_components/BackButton";
 import ReservationButton from "./_components/ReservationButton";

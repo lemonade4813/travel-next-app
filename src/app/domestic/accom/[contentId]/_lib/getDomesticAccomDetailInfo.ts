@@ -1,6 +1,6 @@
 export const getDomesticAccomDetailInfo = async (contentId : string) => {
 
-    const res = await fetch(`http://localhost:3000/api/domestic/accom/${contentId}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/domestic/accom/detail/${contentId}`)
   
     if(!res.ok){
       throw new Error('오류가 발생했습니다.');

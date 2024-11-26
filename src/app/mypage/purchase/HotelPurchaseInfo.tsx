@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import HotelSvg from "../../../asset/hotel2.svg"
+import HotelSvg from "@/asset/hotel2.svg"
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { hotelPurchaseInfoOptions } from "./_options/hotelPurchaseInfoOption";
 import Loading from "@/util/components/Loading";

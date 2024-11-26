@@ -19,7 +19,7 @@ const deletePurchase = async (
 ) => {
     try {
         const res = await fetch(
-            `http://localhost:8080/hotel/purchase?hotelId=${hotelId}&offerId=${offerId}&purchaseId=${purchaseId}`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}/hotel/purchase?hotelId=${hotelId}&offerId=${offerId}&purchaseId=${purchaseId}`,
             {
                 method: "DELETE",
                 headers: {

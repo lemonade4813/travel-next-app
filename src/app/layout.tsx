@@ -4,10 +4,9 @@ import Script from "next/script";
 import RQProvider from "@/components/RQProvider";
 import AlertModal from "@/util/components/modal/AlertModal";
 import HeaderMenu from "./HeaderMenu";
-import { LoginProvider } from "@/LoginContext";
+import { LoginProvider } from "@/util/components/context/LoginContext";
 import MainNav from "./MainNav";
-
-
+import { PostResultProvider } from "@/util/components/context/PostResultContext";
 
 
 export default function RootLayout({
@@ -27,21 +26,23 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-50">
         <script src='https://cdn.iamport.kr/v1/iamport.js' async></script>
-        <LoginProvider>
-        <div className="relative w-full">
-          <AlertModal />  
-          <header className="flex items-center justify-between h-14 px-6 shadow-md bg-white">
-          <h1 className="font-['GochiHand'] text-2xl text-red-800"><Link href='/'>Bon Voyage</Link></h1>
-            <HeaderMenu/>
-          </header>
-          <MainNav/>
-          <RQProvider>
-            <section className="flex justify-center items-center">
-              {children}
-            </section>
-          </RQProvider>
-        </div>
-        </LoginProvider>
+          <LoginProvider>
+            <div className="relative w-full">
+              <PostResultProvider>
+                <AlertModal />  
+              </PostResultProvider>
+              <header className="flex items-center justify-between h-14 px-6 shadow-md bg-white">
+              <h1 className="font-['GochiHand'] text-2xl text-red-800"><Link href='/'>Bon Voyage</Link></h1>
+                <HeaderMenu/>
+              </header>
+              <MainNav/>
+              <RQProvider>
+                <section className="flex justify-center items-center">
+                  {children}
+                </section>
+              </RQProvider>
+            </div>
+          </LoginProvider>
       </body>
     </html>
   );

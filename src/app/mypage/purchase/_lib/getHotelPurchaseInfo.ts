@@ -1,7 +1,7 @@
 export async function getHotelPurchaseInfo() {
     
 
-    const res = await fetch('http://localhost:3000/api/mypage/purchase/hotel', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/hotel/purchaselist`, {
         next: { revalidate: 0 },
     });
 
