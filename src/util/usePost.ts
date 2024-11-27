@@ -1,25 +1,28 @@
-"use client"
+"use client";
 
-import { useState } from "react";
+import { usePostStatus } from "./components/context/PostResultContext";
 
 interface UsePostRequestResult {
-    sendPostRequest: <T>(
-      url: string,
-      payload?: T,
-      message? : string, 
-      callback?: () => void
-    ) => Promise<void>;
-  }
+  sendPostRequest: <T>(
+    url: string,
+    payload?: T,
+    message?: string,
+    callback?: () => void
+  ) => Promise<void>;
+}
 
 const usePostRequest = (): UsePostRequestResult => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<any>(null);
+    
+  const { updatePostStatus} = usePostStatus();
 
-  const sendPostRequest = async <T>(url: string, payload?: T, message? : string, callback?: () => void) => {
+  const sendPostRequest = async <T>(
+    url: string,
+    payload?: T,
+    message?: string,
+    callback?: () => void
+  ) => {
+    updatePostStatus({ isPending: true });
 
-    setIsLoading(true);
-    setError(null);
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -34,11 +37,18 @@ const usePostRequest = (): UsePostRequestResult => {
       }
 
       const responseData = await response.json();
-      setData(responseData);
+
+      if (callback) {
+        callback();
+      }
+
+      if (responseData.message) {
+        updatePostStatus({ message: responseData.message, isAlertModalOpen: true });
+      }
     } catch (err: any) {
-      setError(err.message);
+      updatePostStatus({ message: err.message, isAlertModalOpen: true });
     } finally {
-      setIsLoading(false);
+      updatePostStatus({ isPending: false });
     }
   };
 

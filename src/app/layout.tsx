@@ -6,7 +6,7 @@ import AlertModal from "@/util/components/modal/AlertModal";
 import HeaderMenu from "./HeaderMenu";
 import { LoginProvider } from "@/util/components/context/LoginContext";
 import MainNav from "./MainNav";
-import { PostResultProvider } from "@/util/components/context/PostResultContext";
+import { PostStatusProvider } from "@/util/components/context/PostResultContext";
 
 
 export default function RootLayout({
@@ -28,9 +28,6 @@ export default function RootLayout({
         <script src='https://cdn.iamport.kr/v1/iamport.js' async></script>
           <LoginProvider>
             <div className="relative w-full">
-              <PostResultProvider>
-                <AlertModal />  
-              </PostResultProvider>
               <header className="flex items-center justify-between h-14 px-6 shadow-md bg-white">
               <h1 className="font-['GochiHand'] text-2xl text-red-800"><Link href='/'>Bon Voyage</Link></h1>
                 <HeaderMenu/>
@@ -41,6 +38,9 @@ export default function RootLayout({
                   {children}
                 </section>
               </RQProvider>
+              <PostStatusProvider>
+                <AlertModal/>  
+              </PostStatusProvider>
             </div>
           </LoginProvider>
       </body>
