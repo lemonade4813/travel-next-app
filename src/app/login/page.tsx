@@ -35,6 +35,7 @@ export default function Login() {
             
             if(accessToken){
                 setCookie('accessToken', accessToken, { maxAge: 7 * 24 * 60 * 60 });
+                localStorage.setItem('accessToken', accessToken );
                 setIsLoggedIn(true);
                 router.push('/');
             }

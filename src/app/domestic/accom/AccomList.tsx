@@ -9,7 +9,9 @@ import Loading from "@/util/components/Loading"
 import ErrorPage from "@/util/components/Error"
 import HotelSvg from "@/asset/home/hotel.svg"
 
+
 export default function AccomList() {
+
     const { data: accomList, isPending, error, refetch } = useSuspenseQuery(domesticListQueryOptions());
 
     if (isPending) {

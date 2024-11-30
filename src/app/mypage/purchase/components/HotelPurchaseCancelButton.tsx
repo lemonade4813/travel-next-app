@@ -1,36 +1,32 @@
 "use client"
 
+import { API_PATH } from '@/util/apiPathConfig';
 import { isModalOpenAtom, modalMessageAtom } from '@/util/store/alertModal';
 import { getCookie } from 'cookies-next';
 import { useSetAtom } from 'jotai';
 
 type Props = {
-    contentId: string;
-    itemId: string;
     purchaseId: string;
+    hotelId: string;
+    offerId: string;
 };
 
 const deletePurchase = async (
-    contentId: string,
-    itemId: string,
     purchaseId: string,
-    setModalMessage: (message: string | null) => void,
-    setModalOpen: (open: boolean) => void
+    hotelId: string,
+    offerId: string,
+    setModalMessage?: (message: string | null) => void,
+    setModalOpen?: (open: boolean) => void
 ) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/domestic/accom/purchase?contentid=${contentId}&itemId=${itemId}&purchaseId=${purchaseId}`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['DELETE']['CANCEL_HOTEL_PURCHASE']}?hotelId=${hotelId}&offerId=${offerId}&purchaseId=${purchaseId}`,
             {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization" : `Bearer ${getCookie('accessToken')}`
-                },
-                body: JSON.stringify({
-                    contentid: contentId,
-                    itemId,
-                    purchaseId,
-                }),
+                }
             }
         );
 
@@ -39,8 +35,8 @@ const deletePurchase = async (
         }
 
         const result = await res.json();
-        setModalMessage("예약취소가 성공적으로 완료되었습니다.");
-        setModalOpen(true);
+        // setModalMessage("예약취소가 성공적으로 완료되었습니다.");
+        // setModalOpen(true);
         console.log(result.message);
     } catch (e: unknown) {
         if (e instanceof Error) console.log(e.message);
@@ -48,19 +44,20 @@ const deletePurchase = async (
     }
 };
 
-export default function AccomPurchaseDeleteButton({
-    contentId,
-    itemId,
+export default function HotelPurchaseDeleteButton({
     purchaseId,
+    hotelId,
+    offerId,
 }: Props) {
-    const setModalMessage = useSetAtom(modalMessageAtom);
-    const setModalOpen = useSetAtom(isModalOpenAtom);
+    // const setModalMessage = useSetAtom(modalMessageAtom);
+    // const setModalOpen = useSetAtom(isModalOpenAtom);
 
     return (
         <button
-            className="w-full h-[40px] bg-orange-400 rounded-md text-white"
+            className="w-full h-[40px] bg-purple-500 rounded-md text-white"
             onClick={() =>
-                deletePurchase(contentId, itemId, purchaseId, setModalMessage, setModalOpen)
+                // deletePurchase(purchaseId, hotelId, offerId, setModalMessage, setModalOpen)
+                deletePurchase(purchaseId, hotelId, offerId)
             }
         >
             예약 취소하기

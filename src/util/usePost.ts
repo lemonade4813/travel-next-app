@@ -1,5 +1,6 @@
 "use client";
 
+import { getCookie } from "cookies-next";
 import { usePostStatus } from "./components/context/PostResultContext";
 
 interface UsePostRequestResult {
@@ -12,8 +13,8 @@ interface UsePostRequestResult {
 }
 
 const usePostRequest = (): UsePostRequestResult => {
-    
-  const { updatePostStatus} = usePostStatus();
+
+  const { updatePostStatus } = usePostStatus();
 
   const sendPostRequest = async <T>(
     url: string,
@@ -28,6 +29,7 @@ const usePostRequest = (): UsePostRequestResult => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization" : getCookie('accessToken') ?? ""
         },
         body: JSON.stringify(payload),
       });

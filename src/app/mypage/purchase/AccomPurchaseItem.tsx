@@ -1,5 +1,5 @@
 import Link from "next/link";
-import AccomPurchaseDeleteButton from "./components/AccomPurchaseDeleteButton";
+import AccomPurchaseCancelButton from "./components/AccomPurchaseCancelButton";
 
 interface AccomPurchaseItem {
 
@@ -10,9 +10,7 @@ interface AccomPurchaseItem {
     purchaseDate: string;
     type : string;
     title : string;
-
 }
-
 
 
 export default function AccomPurchaseItem(purchaseItem : AccomPurchaseItem){
@@ -37,7 +35,7 @@ export default function AccomPurchaseItem(purchaseItem : AccomPurchaseItem){
                    <p className="text-base">
                        <span className="font-medium text-indigo-600">예약 일자</span> | {new Date(purchaseItem.purchaseDate).toLocaleDateString()}
                    </p>
-                   <AccomPurchaseDeleteButton
+                   <AccomPurchaseCancelButton
                        contentId={purchaseItem.contentid}
                        itemId={purchaseItem.itemId}
                        purchaseId={purchaseItem.purchaseId}                                

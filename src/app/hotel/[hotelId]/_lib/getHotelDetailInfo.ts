@@ -1,6 +1,15 @@
+import { API_PATH } from "@/util/apiPathConfig";
+import { getAccessToken } from "@/util/getAccessToken"
+
 export const getHotelDetailInfo = async (hotelId : string) => {
     
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/hotel/${hotelId}`,{next : {revalidate : 0}});
+    const accessToken = getAccessToken();
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['GET']['HOTEL_DETAIL']}/${hotelId}`,
+        {
+            headers : {
+              "Authorization" : `Bearer ${accessToken}`
+        }});
 
     if(!res.ok){
         throw new Error('오류가 발생했습니다.');

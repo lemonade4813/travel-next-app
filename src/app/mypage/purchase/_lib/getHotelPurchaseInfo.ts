@@ -1,9 +1,12 @@
+import { getAccessToken } from "@/util/getAccessToken";
+
 export async function getHotelPurchaseInfo() {
     
+    const accessToken = getAccessToken();
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/hotel/purchaselist`, {
-        next: { revalidate: 0 },
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/hotel/purchaselist`, {headers : {
+        "Authorization" : `Bearer ${accessToken}`
+    }});
 
     if(!res.ok){
         throw new Error("오류가 발생했습니다.");

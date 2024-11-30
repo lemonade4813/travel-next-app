@@ -1,10 +1,15 @@
-import { getCookie } from 'cookies-next';
-import { cookies } from 'next/headers';
-
+import { API_PATH } from "@/util/apiPathConfig";
+import { getAccessToken } from "@/util/getAccessToken";
 
 export async function getDomesticAccomList() {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/domestic/accom`);
+    const accessToken = getAccessToken();
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['GET']['DOMESTIC_ACCOM_LIST']}`, 
+    { 
+        headers : {
+            "Authorization" : `Bearer ${accessToken}`
+    }});
 
 
     if(!res.ok){
