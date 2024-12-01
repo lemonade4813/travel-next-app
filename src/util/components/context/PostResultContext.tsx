@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState } from "react";
 
 // 타입 정의
-interface PostStatus {
+export interface PostStatus {
   isPending: boolean; // 요청 진행 여부
   message: string; // 상태 메시지
   callback: (() => void) | null; // 완료 후 실행될 콜백
