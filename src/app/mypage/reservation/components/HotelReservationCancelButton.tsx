@@ -6,13 +6,13 @@ import { getCookie } from 'cookies-next';
 import { useSetAtom } from 'jotai';
 
 type Props = {
-    purchaseId: string;
+    reservationId: string;
     hotelId: string;
     offerId: string;
 };
 
-const deletePurchase = async (
-    purchaseId: string,
+const deleteReservation = async (
+    reservationId: string,
     hotelId: string,
     offerId: string,
     setModalMessage?: (message: string | null) => void,
@@ -20,7 +20,7 @@ const deletePurchase = async (
 ) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['DELETE']['CANCEL_HOTEL_PURCHASE']}?hotelId=${hotelId}&offerId=${offerId}&purchaseId=${purchaseId}`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['DELETE']['CANCEL_HOTEL_PURCHASE']}?hotelId=${hotelId}&offerId=${offerId}&reservationId=${reservationId}`,
             {
                 method: "DELETE",
                 headers: {
@@ -44,8 +44,8 @@ const deletePurchase = async (
     }
 };
 
-export default function HotelPurchaseDeleteButton({
-    purchaseId,
+export default function HotelReservationCancelButton({
+    reservationId,
     hotelId,
     offerId,
 }: Props) {
@@ -56,8 +56,8 @@ export default function HotelPurchaseDeleteButton({
         <button
             className="w-full h-[40px] bg-purple-500 rounded-md text-white"
             onClick={() =>
-                // deletePurchase(purchaseId, hotelId, offerId, setModalMessage, setModalOpen)
-                deletePurchase(purchaseId, hotelId, offerId)
+                // deleteReservation(reservationId, hotelId, offerId, setModalMessage, setModalOpen)
+                deleteReservation(reservationId, hotelId, offerId)
             }
         >
             예약 취소하기

@@ -1,23 +1,23 @@
 import Loading from "@/util/components/Loading";
 import { PrefetchBoundary } from "@/util/components/PrefetchBoundary";
 import { Suspense } from "react";
-import { accomPurchaseInfoOptions } from "./_options/accomPurchaseInfoOptions";
-import AccomPurchaseInfo from "./AccomPurchaseInfo";
-import { hotelListQueryOptions } from "@/app/hotel/_options/hotelListQueryOptions";
-import HotelPurchaseInfo from "./HotelPurchaseInfo";
+import AccomPurchaseInfo from "./AccomReservationInfo";
+import HotelPurchaseInfo from "./HotelReservationInfo";
+import { accomReservationInfoQueryOptions } from "./_options/accomReservationInfoOptions";
+import { hotelReservationInfoQueryOptions } from "./_options/hotelReservationInfoOption";
 
 export default async function MyPurchase(){
 
     return(
         <div className="flex flex-col w-1/2">
             <Suspense fallback={<Loading/>}>
-                <PrefetchBoundary prefetchOptions={accomPurchaseInfoOptions()}>
+                <PrefetchBoundary prefetchOptions={accomReservationInfoQueryOptions()}>
                     <AccomPurchaseInfo/>
                 </PrefetchBoundary>
             </Suspense>
 
             <Suspense fallback={<Loading/>}>
-                <PrefetchBoundary prefetchOptions={hotelListQueryOptions()}>
+                <PrefetchBoundary prefetchOptions={hotelReservationInfoQueryOptions()}>
                     <HotelPurchaseInfo/>
                 </PrefetchBoundary>
             </Suspense>

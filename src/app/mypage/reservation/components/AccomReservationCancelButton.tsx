@@ -8,19 +8,19 @@ import { useSetAtom } from 'jotai';
 type Props = {
     contentId: string;
     itemId: string;
-    purchaseId: string;
+    reservationId: string;
 };
 
-const deletePurchase = async (
+const deleteReservation = async (
     contentId: string,
     itemId: string,
-    purchaseId: string,
+    reservationId : string,
     setModalMessage: (message: string | null) => void,
     setModalOpen: (open: boolean) => void
 ) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['DELETE']['CANCEL_ACCOM_PURCHASE']}?contentid=${contentId}&itemId=${itemId}&purchaseId=${purchaseId}`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['DELETE']['CANCEL_ACCOM_PURCHASE']}?contentid=${contentId}&itemId=${itemId}&reservationId=${reservationId}`,
             {
                 method: "DELETE",
                 headers: {
@@ -30,7 +30,7 @@ const deletePurchase = async (
                 body: JSON.stringify({
                     contentid: contentId,
                     itemId,
-                    purchaseId,
+                    reservationId,
                 }),
             }
         );
@@ -52,7 +52,7 @@ const deletePurchase = async (
 export default function AccomPurchaseDeleteButton({
     contentId,
     itemId,
-    purchaseId,
+    reservationId,
 }: Props) {
     const setModalMessage = useSetAtom(modalMessageAtom);
     const setModalOpen = useSetAtom(isModalOpenAtom);
@@ -61,7 +61,7 @@ export default function AccomPurchaseDeleteButton({
         <button
             className="w-full h-[40px] bg-orange-400 rounded-md text-white"
             onClick={() =>
-                deletePurchase(contentId, itemId, purchaseId, setModalMessage, setModalOpen)
+                deleteReservation(contentId, itemId, reservationId, setModalMessage, setModalOpen)
             }
         >
             예약 취소하기
