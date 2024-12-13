@@ -1,11 +1,11 @@
-import { API_PATH } from "@/util/apiPathConfig";
+import { GET } from "@/util/apiPathConfig";
 import { getAccessToken } from "@/util/getAccessToken";
 
 export const getDomesticAccomDetailInfo = async (contentId : string) => {
 
     const accessToken = getAccessToken();
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['GET']['DOMESTIC_ACOOM_DETAIL']}/${contentId}`, 
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${GET['DOMESTIC_ACOOM_DETAIL']}/${contentId}`, 
                               {
                                 headers : {"Authorization" : `Bearer ${accessToken}`}
                               })

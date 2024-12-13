@@ -1,6 +1,6 @@
 "use client"
 
-import { API_PATH } from '@/util/apiPathConfig';
+import { DELETE } from '@/util/apiPathConfig';
 import { isModalOpenAtom, modalMessageAtom } from '@/util/store/alertModal';
 import { getCookie } from 'cookies-next';
 import { useSetAtom } from 'jotai';
@@ -20,7 +20,7 @@ const deleteReservation = async (
 ) => {
     try {
         const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['DELETE']['CANCEL_ACCOM_PURCHASE']}?contentid=${contentId}&itemId=${itemId}&reservationId=${reservationId}`,
+            `${process.env.NEXT_PUBLIC_BASE_URL}/${DELETE['CANCEL_ACCOM_RESERVATION']}?contentid=${contentId}&itemId=${itemId}&reservationId=${reservationId}`,
             {
                 method: "DELETE",
                 headers: {

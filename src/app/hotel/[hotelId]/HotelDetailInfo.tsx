@@ -6,7 +6,7 @@ import Loading from "@/util/components/Loading";
 import ErrorPage from "@/util/components/Error";
 import HotelSvg from "@/asset/home/hotel.svg"
 import Image from "next/image";
-import { API_PATH } from "@/util/apiPathConfig";
+import { POST } from "@/util/apiPathConfig";
 
 interface Offer {
   offerId: string;
@@ -63,9 +63,9 @@ export default function HotelDetailInfo({ hotelId }: { hotelId: string }) {
     const offers: Offer[] = hotelDetailInfo?.offers;
   
 
-    const handlePurchase = async (offerId: string) => {
+    const handleReserve = async (offerId: string) => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['POST']['PURCHASE_HOTEL_ITEM']}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${POST['RESERVE_HOTEL_ITEM']}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -128,7 +128,7 @@ export default function HotelDetailInfo({ hotelId }: { hotelId: string }) {
                         className={`${
                             offer.available ? "bg-red-800" : "bg-gray-400"
                         } text-white px-4 py-2 rounded mt-4`}
-                        onClick={() => handlePurchase(offer.offerId)}
+                        onClick={() => handleReserve(offer.offerId)}
                         disabled={!offer.available}
                         >
                         {offer.available ? "예약하기" : "예약완료"}

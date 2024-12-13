@@ -1,20 +1,25 @@
-export const API_PATH = {
-    GET : {
+export const GET = {
         DOMESTIC_ACCOM_LIST : 'domestic/accom',
         DOMESTIC_ACOOM_DETAIL : 'domestic/accom/detail',
         FLIGHT_LIST : 'flight/offer',
         FLIGHT_DETAIL : 'flight/offer/detail',
-        DOMESTIC_ACCOM_PURCHASE_INFO : 'domestic/accom/purchaseinfo',
+        DOMESTIC_ACCOM_RESERVATION_INFO : 'domestic/accom/reservations',
         HOTEL_LIST :'hotel', 
         HOTEL_DETAIL : 'hotel',
-        HOTEL_PURCHASE_INFO : 'hotel/purchaselist'
-    },
-    POST : {
-        DOMESTIC_ACCOM_RESERVATION : 'domestic/accom/purchase',
-        PURCHASE_HOTEL_ITEM : 'hotel/purchase',
-    },
-    DELETE : {
-        CANCEL_ACCOM_PURCHASE : 'domestic/accom/purchase',
-        CANCEL_HOTEL_PURCHASE : 'hotel/purchase'
-    } 
+        HOTEL_RESERVATION_INFO : 'hotel/reservations'
+    }
+
+export const POST = {    
+
+        DOMESTIC_ACCOM_RESERVATION : 'domestic/accom/reservations',
+        RESERVE_HOTEL_ITEM : 'hotel/reservations',
 }
+
+export const DELETE = {
+
+        CANCEL_ACCOM_RESERVATION : 'domestic/accom/reservations',
+        CANCEL_HOTEL_RESERVATION : 'hotel/reservations'
+
+}
+
+

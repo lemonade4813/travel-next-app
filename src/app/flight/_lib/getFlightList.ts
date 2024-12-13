@@ -1,4 +1,4 @@
-import { API_PATH } from "@/util/apiPathConfig";
+import { GET } from "@/util/apiPathConfig";
 import { getAccessToken } from "@/util/getAccessToken";
 
 export async function getFlightList(searchParams: { date: Date; departAirport: string; arriveAirport: string }) {
@@ -7,7 +7,7 @@ export async function getFlightList(searchParams: { date: Date; departAirport: s
 
     const accessToken = getAccessToken();
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH['GET']['FLIGHT_LIST']}`, 
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${GET['FLIGHT_LIST']}`, 
         {
             headers : {"Authorization" : `Bearer ${accessToken}`
         }});
