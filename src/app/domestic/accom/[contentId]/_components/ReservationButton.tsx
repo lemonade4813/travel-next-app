@@ -63,7 +63,7 @@ type Props = {
     //     alert("예약에 실패하였습니다. 다시 시도해주세요.");
     // }
 
-      requestPay(price, title);
+      // requestPay(price, title);
       
   };
 

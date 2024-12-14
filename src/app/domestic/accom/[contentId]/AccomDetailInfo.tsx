@@ -5,14 +5,25 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import NoImageSvg from "@/asset/noImage.svg";
 import { convertToDateTimeFormat } from "@/util/convertToDateTimeFormat";
 import BackButton from "./_components/BackButton";
-import ReservationButton from "./_components/ReservationButton";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
 import { domesticQueryOptions } from "./_options/domesticQueryOptions";
 import Loading from "@/util/components/Loading";
 import ErrorPage from "@/util/components/Error";
 import HotelSvg from "@/asset/home/hotel.svg"
+import usePostRequest from "@/util/usePost";
+import { GET, POST } from "@/util/apiPathConfig";
+import { useRouter } from "next/navigation";
+import { requestPay } from "@/util/requestPay";
+
 
 export default function AccomDetailInfo({ contentId }: { contentId: string }) {
+
+  const router = useRouter();
+
+  const queryClient = useQueryClient();
+
+  const { sendPostRequest } = usePostRequest();
+  
   const {
     data: detailInfo,
     isPending,
@@ -28,6 +39,14 @@ export default function AccomDetailInfo({ contentId }: { contentId: string }) {
     return <ErrorPage refetch={refetch} errorMsg={error.message} />;
   }
 
+
+  const handlePay = (price : number, itemName : string) => requestPay(price, itemName);
+
+  const onPostSuccessCallback = () => {
+    queryClient.invalidateQueries({queryKey: ['domesticAccomList']})
+    router.push(GET['DOMESTIC_ACCOM_LIST']);
+  }
+  
   return (
     <>
       {detailInfo && (
@@ -96,14 +115,27 @@ export default function AccomDetailInfo({ contentId }: { contentId: string }) {
                       {item.availCount}
                     </td>
                     <td className="border-collapse border-gray-300 p-2">
-                      <ReservationButton
-                        itemId={item.itemId}
-                        type={item.type}
-                        price={item.price}
-                        contentId={detailInfo.contentid}
-                        title={detailInfo.title}
-                        checkInDate={item.checkInDate}
-                      />
+                       <button
+                          onClick={() => 
+                                    sendPostRequest(
+                                      POST['DOMESTIC_ACCOM_RESERVATION'],
+                                      {
+                                        itemId : item.id,
+                                        type : item.type,
+                                        price : item.price,
+                                        contentId : detailInfo.contentid,
+                                        title : detailInfo.title,
+                                        checkInDate : item.checkInDate
+                                      },
+                                      ()=>{
+                                            handlePay(item.price, detailInfo.title);
+                                            onPostSuccessCallback();
+                                      }
+                                  )}
+                          className="bg-red-800 text-white rounded-md w-2/3"
+                        >
+                          예약
+                        </button>
                     </td>
                   </tr>
                 ))}

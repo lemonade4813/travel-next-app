@@ -24,7 +24,7 @@ export default function HeaderMenu() {
                 </>
             ) : (
                 <>
-                    <Link href="/mypage/purchase" className="border-r-2 border-sky-300 pr-[16px]">내 예약정보</Link>
+                    <Link href="/mypage/reservation" className="border-r-2 border-sky-300 pr-[16px]">내 예약정보</Link>
                     <button onClick={handleLogout}>로그아웃</button>
                 </>
             )}
