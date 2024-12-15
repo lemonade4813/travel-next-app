@@ -6,7 +6,7 @@ import AlertModal from "@/util/components/modal/AlertModal";
 import HeaderMenu from "./HeaderMenu";
 import { LoginProvider } from "@/util/components/context/LoginContext";
 import MainNav from "./MainNav";
-import { PostStatusProvider } from "@/util/components/context/PostResultContext";
+import { PostStatusProvider } from "@/util/components/context/PostStatusContext";
 
 
 export default function RootLayout({
@@ -38,9 +38,7 @@ export default function RootLayout({
                   {children}
                 </section>
               </RQProvider>
-              <PostStatusProvider>
-                <AlertModal/>  
-              </PostStatusProvider>
+              <AlertModal/>  
             </div>
           </LoginProvider>
       </body>

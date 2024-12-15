@@ -1,15 +1,15 @@
 "use client";
 
+import useApiStatus from "@/util/store/postStatus";
 import React from "react";
-import {usePostStatus } from "../context/PostResultContext";
-
+useApiStatus
 
 const AlertModal: React.FC = () => {
     
   const { message,
-          resetPostStatus, 
+          resetApiStatus, 
           isAlertModalOpen, 
-          callback } = usePostStatus();
+          callback } = useApiStatus();
 
   if (!isAlertModalOpen) return null;
 
@@ -21,7 +21,7 @@ const AlertModal: React.FC = () => {
         <button
           className="bg-red-800 p-2 rounded-lg w-full text-white"
           onClick={() => {
-            resetPostStatus();
+            resetApiStatus();
             callback && callback();
           }}
         >

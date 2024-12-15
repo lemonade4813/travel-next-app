@@ -1,35 +1,37 @@
 "use client";
 
 import { getCookie } from "cookies-next";
-import { PostStatus, usePostStatus } from "./components/context/PostResultContext";
 import { useRouter } from "next/navigation";
+import useApiStatus, { ApiStatus } from "./store/postStatus";
 
-interface UsePostRequestResult {
-  sendPostRequest: <T>(
+interface UseApiStatus {
+  sendApiRequest: <T>(
+    method : 'POST' | 'DELETE',
     url: string,
     payload?: T,
     callback?: () => void
   ) => Promise<void>;
 }
 
-const usePostRequest = (): UsePostRequestResult => {
+const useApiRequest = (): UseApiStatus => {
 
-  const { updatePostStatus } = usePostStatus();
+  const { updateApiStatus } = useApiStatus();
 
   const router = useRouter();
 
   // 상태 코드별 처리를 담당하는 함수
   const handleResponseStatus = (status: number, responseData: any) => {
 
-    const commonAlertOptions : Partial<PostStatus>= {
+    const commonAlertOptions : Partial<ApiStatus>= {
       isAlertModalOpen: true,
-      message : responseData.message
+      message : responseData.message,
+      isPending : false
     };
   
     if (status === 200 || status === 201) {
       
       // 성공 또는 리소스 생성
-      updatePostStatus({
+      updateApiStatus({
         ...commonAlertOptions,
         message: commonAlertOptions.message || '처리 완료 되었습니다.',
         callback: () => router.back(),
@@ -37,7 +39,7 @@ const usePostRequest = (): UsePostRequestResult => {
     } else if (status === 401) {
 
       // 인증 실패, 로그인 페이지로 이동
-      updatePostStatus({
+      updateApiStatus({
         ...commonAlertOptions,
         message: commonAlertOptions.message || '로그인이 필요합니다.',
         callback: () => router.push('/login'),
@@ -45,25 +47,32 @@ const usePostRequest = (): UsePostRequestResult => {
     } else if (status === 500) {
       
       // 서버 오류
-      updatePostStatus({
+      updateApiStatus({
         ...commonAlertOptions,
         message: commonAlertOptions.message || '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.',
       });
     } else {
       
       // 기타 상태 코드
-      updatePostStatus({
+      updateApiStatus({
         ...commonAlertOptions,
         message: commonAlertOptions.message || `오류가 발생했습니다: ${status}`,
       });
     }
   };
 
-  const sendPostRequest = async <T>(
+  const sendApiRequest = async <T>(
+    method : 'POST' | 'DELETE',
     url: string,
     payload?: T,
+
   ) => {
-    updatePostStatus({ isPending: true });
+    updateApiStatus({ isPending: true });
+
+    console.log(method)
+    console.log(url)
+    console.log(payload)
+    console.log(getCookie('accessToken'))
 
     const headers = {
       "Content-Type": "application/json",
@@ -72,10 +81,12 @@ const usePostRequest = (): UsePostRequestResult => {
 
     const body = payload ? JSON.stringify(payload) : undefined;
 
+    console.log(body)
+
     const response = await fetch(url, {
-      method: "POST",
       headers,
-      body,
+      method,
+      body
     });
 
     const responseData = await response.json();
@@ -83,13 +94,12 @@ const usePostRequest = (): UsePostRequestResult => {
     // 헬퍼 함수로 상태 코드별 처리
     handleResponseStatus(response.status, responseData);
 
-    updatePostStatus({ isPending: false });
   };
 
-  return { sendPostRequest };
+  return { sendApiRequest };
 };
 
-export default usePostRequest;
+export default useApiRequest;
 
 
 

@@ -10,7 +10,7 @@ import { domesticQueryOptions } from "./_options/domesticQueryOptions";
 import Loading from "@/util/components/Loading";
 import ErrorPage from "@/util/components/Error";
 import HotelSvg from "@/asset/home/hotel.svg"
-import usePostRequest from "@/util/usePost";
+import useApiRequest from "@/util/useApi";
 import { GET, POST } from "@/util/apiPathConfig";
 import { useRouter } from "next/navigation";
 import { requestPay } from "@/util/requestPay";
@@ -22,7 +22,7 @@ export default function AccomDetailInfo({ contentId }: { contentId: string }) {
 
   const queryClient = useQueryClient();
 
-  const { sendPostRequest } = usePostRequest();
+  const { sendApiRequest } = useApiRequest();
   
   const {
     data: detailInfo,
@@ -46,7 +46,7 @@ export default function AccomDetailInfo({ contentId }: { contentId: string }) {
     queryClient.invalidateQueries({queryKey: ['domesticAccomList']})
     router.push(GET['DOMESTIC_ACCOM_LIST']);
   }
-  
+
   return (
     <>
       {detailInfo && (
@@ -117,10 +117,11 @@ export default function AccomDetailInfo({ contentId }: { contentId: string }) {
                     <td className="border-collapse border-gray-300 p-2">
                        <button
                           onClick={() => 
-                                    sendPostRequest(
-                                      POST['DOMESTIC_ACCOM_RESERVATION'],
+                                    sendApiRequest(
+                                      'POST',
+                                      `${process.env.NEXT_PUBLIC_BASE_URL}/${POST['DOMESTIC_ACCOM_RESERVATION']}`,
                                       {
-                                        itemId : item.id,
+                                        itemId : item.itemId,
                                         type : item.type,
                                         price : item.price,
                                         contentId : detailInfo.contentid,
