@@ -2,11 +2,10 @@ import "./globals.css";
 import Link from "next/link";
 import Script from "next/script";
 import RQProvider from "@/components/RQProvider";
-import AlertModal from "@/util/components/modal/AlertModal";
 import HeaderMenu from "./HeaderMenu";
 import { LoginProvider } from "@/util/components/context/LoginContext";
 import MainNav from "./MainNav";
-import { PostStatusProvider } from "@/util/components/context/PostStatusContext";
+import Modal from "@/components/AlertModalLayout";
 
 
 export default function RootLayout({
@@ -25,7 +24,9 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-gray-50">
+       
         <script src='https://cdn.iamport.kr/v1/iamport.js' async></script>
+        <div id="modal-root"></div>
           <LoginProvider>
             <div className="relative w-full">
               <header className="flex items-center justify-between h-14 px-6 shadow-md bg-white">
@@ -38,7 +39,7 @@ export default function RootLayout({
                   {children}
                 </section>
               </RQProvider>
-              <AlertModal/>  
+              <Modal/>  
             </div>
           </LoginProvider>
       </body>

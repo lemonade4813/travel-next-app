@@ -1,5 +1,6 @@
 import { GET } from "@/util/apiPathConfig";
 import { getAccessToken } from "@/util/getAccessToken";
+import { redirect } from "next/navigation";
 
 export async function getDomesticAccomList() {
 
@@ -13,7 +14,10 @@ export async function getDomesticAccomList() {
 
 
     if(!res.ok){
-        throw new Error("에러가 발생했습니다.");
+        if(res.status === 401){
+            redirect("/login")
+        }
+        throw new Error(`에러가 발생했습니다. ${res.status}` );
     }
 
     const  { data }  = await res.json();

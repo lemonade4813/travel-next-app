@@ -124,14 +124,14 @@ export default function AccomDetailInfo({ contentId }: { contentId: string }) {
                                         itemId : item.itemId,
                                         type : item.type,
                                         price : item.price,
-                                        contentId : detailInfo.contentid,
+                                        contentid : detailInfo.contentid,
                                         title : detailInfo.title,
                                         checkInDate : item.checkInDate
                                       },
-                                      ()=>{
-                                            handlePay(item.price, detailInfo.title);
-                                            onPostSuccessCallback();
-                                      }
+                                      // ()=>{
+                                      //       handlePay(item.price, detailInfo.title);
+                                      //       onPostSuccessCallback();
+                                      // }
                                   )}
                           className="bg-red-800 text-white rounded-md w-2/3"
                         >

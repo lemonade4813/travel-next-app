@@ -20,12 +20,13 @@ const useApiRequest = (): UseApiStatus => {
   const router = useRouter();
 
   // 상태 코드별 처리를 담당하는 함수
-  const handleResponseStatus = (status: number, responseData: any) => {
+  const handleResponseStatus = (status: number, responseData: any, callback? : ()=> void) => {
 
     const commonAlertOptions : Partial<ApiStatus>= {
       isAlertModalOpen: true,
       message : responseData.message,
-      isPending : false
+      isPending : false,
+      callback
     };
   
     if (status === 200 || status === 201) {
@@ -65,6 +66,7 @@ const useApiRequest = (): UseApiStatus => {
     method : 'POST' | 'DELETE',
     url: string,
     payload?: T,
+    callback? : () => void
 
   ) => {
     updateApiStatus({ isPending: true });
@@ -84,15 +86,17 @@ const useApiRequest = (): UseApiStatus => {
     console.log(body)
 
     const response = await fetch(url, {
-      headers,
       method,
-      body
+      headers,
+      body,
     });
+
+    console.log(response)
 
     const responseData = await response.json();
 
     // 헬퍼 함수로 상태 코드별 처리
-    handleResponseStatus(response.status, responseData);
+    handleResponseStatus(response.status, responseData, callback);
 
   };
 
